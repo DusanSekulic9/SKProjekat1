@@ -22,7 +22,7 @@ public class ChoosingView extends HBox{
 	
 	public ChoosingView() {
 		this.newStor = new Button("New storage");
-		this.openStor = new Button("Open storage");
+		this.openStor = new Button("Open storageee");
 		addElements();
 		addActions();
 	}
