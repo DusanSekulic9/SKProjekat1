@@ -27,6 +27,8 @@ public abstract class Storage {
 			this.autoincrement = autoincrement;
 	}
 	
+	public abstract Entity createObjectFromString(String string);
+	
 	public abstract void makeNewEntity();
 	
 	public abstract List<Entity> search(int id);

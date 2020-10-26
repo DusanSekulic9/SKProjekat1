@@ -1,0 +1,2 @@
+[ { "id": 1, "naziv": "Student", "godine": 21, "ime":"Petar", "prezime":"Petrovic" },
+	{ "id": 2, "naziv": "Student", "godine": 19, "ime":"Nikola", "prezime":"Jovanovic" }]
