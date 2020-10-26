@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,7 @@ import com.google.gson.stream.JsonToken;
 
 import model.Entity;
 import model.Storage;
+
 
 public class JsonImportExport extends Storage{
 	
@@ -71,6 +71,8 @@ public class JsonImportExport extends Storage{
 				
 				reader.endArray();
 				
+				reader.close();
+				
 				
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -102,7 +104,6 @@ public class JsonImportExport extends Storage{
 	@Override
 	public Entity createObjectFromString(String string) {
 		String json = string;
-		Gson gson = new Gson();
 		Object object = gson.fromJson(json, Entity.class);
 
 		return (Entity) object;
