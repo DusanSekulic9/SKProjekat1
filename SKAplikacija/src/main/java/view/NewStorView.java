@@ -38,9 +38,9 @@ public class NewStorView extends VBox {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				//Scene scene = new Scene(new SearchView(), 400, 400);
-				//Main.window2.setScene(scene);
-				//Main.window2.show();
+				Scene scene = new Scene(new SearchView(), 400, 400);
+				Main.window2.setScene(scene);
+				Main.window2.show();
 			}
 		});
 		
