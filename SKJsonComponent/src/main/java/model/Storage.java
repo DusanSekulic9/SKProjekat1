@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,6 +9,7 @@ public abstract class Storage {
 	private List<Entity> entities;
 	private boolean autoincrement = true;
 	private int maxFiles;
+	protected File fileInUse = new File("");
 	
 	public abstract void save(Entity e);
 	
@@ -47,6 +49,14 @@ public abstract class Storage {
 		this.maxFiles = maxFiles;
 	}
 	
+	
+	public File getFileInUse() {
+		return fileInUse;
+	}
+
+	public void setFileInUse(File fileInUse) {
+		this.fileInUse = fileInUse;
+	}
 	
 
 	

@@ -18,7 +18,7 @@ import model.Storage;
 public class JsonImportExport extends Storage{
 	
 	private Gson gson = new Gson();
-	private File fileInUse = new File("");
+	
 	
 	@Override
 	public void save(Entity e) {
@@ -47,17 +47,19 @@ public class JsonImportExport extends Storage{
 					reader.beginObject();
 					parser += "{";
 					while(reader.peek() != JsonToken.END_OBJECT) {
-						if(reader.nextName().compareToIgnoreCase("id") == 0 ) {
-							if(Integer.parseInt(reader.nextName()) == id) {
-								
+						String key = reader.nextName();
+						String value = reader.nextString();
+						if(key.compareToIgnoreCase("id") == 0 ) {
+							if(Integer.parseInt(value) != id) {
+								isIt = false;
 							}
-							isIt = false;
-							break;
 						}
-						if(reader.peek() != JsonToken.END_OBJECT)
-							parser += reader.nextName() + ":" + reader.nextString() + ",";
-						else {
-							parser += reader.nextName() + ":" + reader.nextString() + "}";
+						if(isIt) {
+							if(reader.peek() != JsonToken.END_OBJECT)
+								parser += key + ":" + value + ",";
+							else {
+								parser += key + ":" + value + "}";
+							}
 						}
 					}
 					if(isIt) {
@@ -108,5 +110,9 @@ public class JsonImportExport extends Storage{
 
 		return (Entity) object;
 	}
+
+
+	
+	
 
 }

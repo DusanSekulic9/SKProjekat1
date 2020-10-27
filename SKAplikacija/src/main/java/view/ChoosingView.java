@@ -13,7 +13,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
+import json.JsonImportExport;
 import main.Main;
+import model.Storage;
+import model.StorageBase;
 
 public class ChoosingView extends HBox{
 	
@@ -36,8 +39,11 @@ public class ChoosingView extends HBox{
 			public void handle(ActionEvent event) {
 				
 				FileChooser fc = new FileChooser();
-				File f = new File("C:\\Users\\Milena\\git\\SKProjekat1\\SKAplikacija\\data\\data.json"); //fc.showOpenDialog(Main.window);
+				File f = new File("C:\\Users\\Dusan\\git\\SKProjekat1\\SKAplikacija\\data\\data.json"); //fc.showOpenDialog(Main.window);
 				if(f != null) {
+					Storage storage = new JsonImportExport();
+					storage.setFileInUse(f);
+					StorageBase.getInstance().setStorage(storage);
 					Scene scene = new Scene(new NewStorView(), 500, 500);
 					Main.window.setScene(scene);
 				}				

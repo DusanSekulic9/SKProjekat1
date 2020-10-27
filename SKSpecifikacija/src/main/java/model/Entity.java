@@ -15,6 +15,10 @@ public class Entity {
 		this.atributi = atributi;
 	}
 	
+	@Override
+	public String toString() {
+		return "id: " + id + "\tnaziv: " + naziv + "\tatributi: " + atributi.toString();
+	}
 	
 	
 }

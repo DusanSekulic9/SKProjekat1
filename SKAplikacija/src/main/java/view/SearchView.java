@@ -15,38 +15,60 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import main.Main;
+import model.StorageBase;
 
 public class SearchView extends VBox {
 	
-	private TextField tf1;
-	private TextField tf2;
-	private Button btn1;
-	private Button btn2;
+	private TextField tfKey;
+	private TextField tfValue;
+	private Button btnSearch;
+	private Button btnAdd;
+	private String parser = "";
 	
 	public SearchView() {
 		
-		this.tf1 = new TextField();
-		this.tf2 = new TextField();
-		this.btn1 = new Button("Search");
-		this.btn2 = new Button("Add");
+		this.tfKey = new TextField();
+		this.tfValue = new TextField();
+		this.btnSearch = new Button("Search");
+		this.btnAdd = new Button("Add");
 		addElements();
 		addActions();
 	
 	}
 	
 	private void addActions() {
+		btnAdd.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				parser += tfKey.getText().trim() + ":" + tfValue.getText().trim() + "\n";
+				//ispis- singlton
+			}
+		});
 		
+		btnSearch.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				parser += tfKey.getText().trim() + ":" + tfValue.getText().trim() + "";
+				if(parser.contains("id")) {
+					String[] split = parser.split(":");
+					int id = Integer.parseInt(split[1]);
+					StorageBase.getInstance().getStorage().search(id);
+				}
+			}
+		});
 	}
 
 	private void addElements() {
 		GridPane gp = new GridPane();
 		gp.add(new Label("Key: "), 0, 0);
-		gp.add(tf1, 1, 0);
+		gp.add(tfKey, 1, 0);
 		gp.add(new Label("Value: "), 0, 1);
-		gp.add(tf2, 1, 1);
+		gp.add(tfValue, 1, 1);
 		HBox hb = new HBox();
-		hb.getChildren().add(btn1);
-		hb.getChildren().add(btn2);
+		hb.getChildren().add(btnSearch);
+		hb.getChildren().add(btnAdd);
 		this.getChildren().add(gp);
 		this.getChildren().add(hb);
 	}
