@@ -65,6 +65,7 @@ public class JsonImportExport extends Storage{
 					if(isIt) {
 						Entity ent = createObjectFromString(parser);
 						res.add(ent);
+						System.out.println(res);
 					}else {
 						parser = "";
 					}
@@ -105,10 +106,23 @@ public class JsonImportExport extends Storage{
 
 	@Override
 	public Entity createObjectFromString(String string) {
-		String json = string;
-		Object object = gson.fromJson(json, Entity.class);
+		Entity entity = new Entity();
+		
+		String[] splitByComa = string.split(",");
+		for(String s : splitByComa) {
+			String[] keyValueSplit = s.split(":");
+			if(keyValueSplit[0].equalsIgnoreCase("id")) {
+				entity.setId(Integer.parseInt(keyValueSplit[1]));
+			}else if(keyValueSplit[0].equalsIgnoreCase("naziv")) {
+				entity.setNaziv(keyValueSplit[1]);
+			}else {
+				entity.getAtributi().put(keyValueSplit[0], keyValueSplit[1]);
+			}
+			
+		}
+		
 
-		return (Entity) object;
+		return entity;
 	}
 
 
