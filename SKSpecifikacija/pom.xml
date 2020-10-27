@@ -3,13 +3,6 @@
   <groupId>SK1</groupId>
   <artifactId>SKSpecifikacija</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <dependencies>
-  	<dependency>
-	  	<groupId>SK1</groupId>
-	  	<artifactId>SKJsonComponent</artifactId>
-	  	<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
-  </dependencies>
   	<build>
 		<plugins>
 			<!-- any other plugins -->

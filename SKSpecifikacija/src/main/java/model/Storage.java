@@ -28,7 +28,7 @@ public abstract class Storage {
 		if(this.autoincrement)
 			this.autoincrement = autoincrement;
 	}
-	
+
 	public abstract Entity createObjectFromString(String string);
 	
 	public abstract void makeNewEntity();
