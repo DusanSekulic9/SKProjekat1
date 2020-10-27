@@ -1,2 +1,8 @@
 [ { "id": 1, "naziv": "Student", "godine": 21, "ime":"Petar", "prezime":"Petrovic" },
-	{ "id": 2, "naziv": "Student", "godine": 19, "ime":"Nikola", "prezime":"Jovanovic" }]
+	{ "id": 2, "naziv": "Student", "godine": 19, "ime":"Nikola", "prezime":"Jovanovic" },
+	{ "id": 3, "naziv": "Profesor", "godine": 19, "ime":"Dusan", "prezime":"Sekulic" },
+	{ "id": 4, "naziv": "Student", "godine": 19, "ime":"Vlada", "prezime":"Cvetkovic" },
+	{ "id": 5, "naziv": "Profesor", "godine": 19, "ime":"Nikola", "prezime":"Boskovoic" },
+	{ "id": 6, "naziv": "Student", "godine": 19, "ime":"Igor", "prezime":"Jovanovic" },
+	{ "id": 7, "naziv": "Student", "godine": 19, "ime":"Petar", "prezime":"Lazovic" },
+	{ "id": 8, "naziv": "Student", "godine": 19, "ime":"Lazar", "prezime":"Popopvic" }]

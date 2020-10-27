@@ -56,6 +56,13 @@ public class SearchView extends VBox {
 					int id = Integer.parseInt(split[1]);
 					StorageBase.getInstance().getStorage().search(id);
 				}
+				if(parser.contains("naziv")) {
+					String[] split = parser.split(":");
+					StorageBase.getInstance().getStorage().search(split[1]);
+				}
+				tfKey.setText("");
+				tfValue.setText("");
+				parser = "";
 			}
 		});
 	}

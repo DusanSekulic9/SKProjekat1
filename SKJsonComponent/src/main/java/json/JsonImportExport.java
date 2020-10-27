@@ -45,7 +45,6 @@ public class JsonImportExport extends Storage{
 				boolean isIt = true;
 				while(reader.hasNext()) {
 					reader.beginObject();
-					parser += "{";
 					while(reader.peek() != JsonToken.END_OBJECT) {
 						String key = reader.nextName();
 						String value = reader.nextString();
@@ -58,7 +57,7 @@ public class JsonImportExport extends Storage{
 							if(reader.peek() != JsonToken.END_OBJECT)
 								parser += key + ":" + value + ",";
 							else {
-								parser += key + ":" + value + "}";
+								parser += key + ":" + value;
 							}
 						}
 					}
@@ -66,9 +65,9 @@ public class JsonImportExport extends Storage{
 						Entity ent = createObjectFromString(parser);
 						res.add(ent);
 						System.out.println(res);
-					}else {
-						parser = "";
 					}
+					parser = "";
+					isIt = true;
 					reader.endObject();
 				}
 				
@@ -88,8 +87,52 @@ public class JsonImportExport extends Storage{
 
 	@Override
 	public List<Entity> search(String naziv) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Entity> res = new ArrayList<Entity>();
+		try {
+			JsonReader reader = new JsonReader(new FileReader(fileInUse));
+			reader.beginArray();
+			String parser = "";
+			boolean isIt = true;
+			while(reader.hasNext()) {
+				reader.beginObject();
+				while(reader.peek() != JsonToken.END_OBJECT) {
+					String key = reader.nextName();
+					String value = reader.nextString();
+					if(key.compareToIgnoreCase("Naziv") == 0 ) {
+						if(value.compareToIgnoreCase(naziv) != 0) {
+							isIt = false;
+						}
+					}
+					if(isIt) {
+						if(reader.peek() != JsonToken.END_OBJECT)
+							parser += key + ":" + value + ",";
+						else {
+							parser += key + ":" + value;
+						}
+					}
+				}
+				if(isIt) {
+					Entity ent = createObjectFromString(parser);
+					res.add(ent);
+					System.out.println(ent);
+				}
+				parser = "";
+				isIt = true;
+				reader.endObject();
+			}
+			
+			reader.endArray();
+			
+			reader.close();
+			
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	return res;
 	}
 
 	@Override
