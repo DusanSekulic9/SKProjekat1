@@ -1,8 +1,49 @@
-[ { "id": 1, "naziv": "Student", "godine": 21, "ime":"Petar", "prezime":"Petrovic" },
-	{ "id": 2, "naziv": "Student", "godine": 19, "ime":"Nikola", "prezime":"Jovanovic" },
-	{ "id": 3, "naziv": "Profesor", "godine": 19, "ime":"Dusan", "prezime":"Sekulic" },
-	{ "id": 4, "naziv": "Student", "godine": 19, "ime":"Vlada", "prezime":"Cvetkovic" },
-	{ "id": 5, "naziv": "Profesor", "godine": 19, "ime":"Nikola", "prezime":"Boskovoic" },
-	{ "id": 6, "naziv": "Student", "godine": 19, "ime":"Igor", "prezime":"Jovanovic" },
-	{ "id": 7, "naziv": "Student", "godine": 19, "ime":"Petar", "prezime":"Lazovic" },
-	{ "id": 8, "naziv": "Student", "godine": 19, "ime":"Lazar", "prezime":"Popopvic" }]
+[
+	{
+		"id": 1,
+		"naziv": "student",
+		"simpleProperties": {
+			"ime": "Mika",
+			"mesto": "Beograd"
+		},
+		"entityProperties": {
+			"ljubimac": {
+				"id": 2,
+				"naziv": "ljubimac",
+				"simpleProperties": {
+					"ime": "Reks",
+					"zivotinja": "kuce",
+					"starost": 6
+				}
+			}
+		}
+	},
+	{
+		"id": 3,
+		"naziv": "predmet",
+		"simpleProperties": {
+			"ime": "OOP"
+		},
+		"entityProperties": {
+			"profesor": {
+				"id": 4,
+				"naziv": "profesor",
+				"simpleProperties": {
+					"ime": "Ana",
+					"prezime": "Anic"
+				},
+				"entityProperties": {
+					"kolega": { 
+					"id": 5,
+					"naziv": "kolega",
+					"simpleProperties": {
+					"ime": "Marko",
+					"prezime": "Markovic"
+					}
+					}
+				}
+				}
+			}
+			
+		}
+]

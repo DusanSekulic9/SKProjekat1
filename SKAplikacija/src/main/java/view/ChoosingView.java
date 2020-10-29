@@ -39,7 +39,7 @@ public class ChoosingView extends HBox{
 			public void handle(ActionEvent event) {
 				
 				FileChooser fc = new FileChooser();
-				File f = new File("C:\\Users\\Dusan\\git\\SKProjekat1\\SKAplikacija\\data\\data.json"); //fc.showOpenDialog(Main.window);
+				File f = new File("C:\\Users\\Milena\\git\\SKProjekat1\\SKAplikacija\\data\\data.json"); //fc.showOpenDialog(Main.window);
 				if(f != null) {
 					Storage storage = new JsonImportExport();
 					storage.setFileInUse(f);
