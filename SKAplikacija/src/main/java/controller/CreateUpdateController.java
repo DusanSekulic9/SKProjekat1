@@ -12,8 +12,8 @@ public class CreateUpdateController implements EventHandler<ActionEvent>{
 	@Override
 	public void handle(ActionEvent event) {
 		Scene scene = new Scene(new CreateUpdateView(), 400, 400);
-		Main.window2.setScene(scene);
-		Main.window2.show();
+		Main.window3.setScene(scene);
+		Main.window3.show();
 	}
 
 }
