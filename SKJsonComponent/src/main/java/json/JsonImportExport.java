@@ -15,8 +15,71 @@ import model.Storage;
 
 public class JsonImportExport extends Storage{
 	
+	public List<Entity> pretraziFajl(String pretraga){
+		List<Entity> res = new ArrayList<Entity>();
+		String[] split = pretraga.split("\n");
+		try {
+			JsonReader reader = new JsonReader(new FileReader(fileInUse));
+			reader.beginArray();
+				res = pretraziEntitet(reader, split);
+			reader.endArray();
+			
+			reader.close();
+			
+		}catch (Exception e) {
+			
+		}
+		return res;
+	}
 	
-	
+	public List<Entity> pretraziEntitet(JsonReader reader,String[] pretraga) {
+		List<Entity> res = new ArrayList<Entity>();	
+		boolean isIt = true;
+		try {
+			while(reader.hasNext()) {
+				reader.beginObject();
+				while(reader.peek() != JsonToken.END_OBJECT) {
+					String key = reader.nextName();
+					if(reader.peek() != JsonToken.BEGIN_OBJECT) {
+						String value = reader.nextString();
+						for(String s : pretraga) {
+							String[] split = s.split(":");
+							if(key.equalsIgnoreCase(split[0]) && value.equalsIgnoreCase(split[1])) {
+								isIt = false;
+							}
+						}
+						parser += key + ":" + value + "\n";
+					}else {
+						if(key.equalsIgnoreCase("simpleproperties")) {
+							reader.beginObject();
+							while(reader.peek() != JsonToken.END_OBJECT) {
+								key = reader.nextName();
+								String value = reader.nextString();
+								parser += key + ":" + value + "\n";
+							}
+							reader.endObject();
+						}else {
+							reader.beginObject();
+							String secondKey = reader.nextName();
+							parser += key + ":" + "noviEntitet";
+							res = pretraziEntitet(reader, pretraga);
+						}
+					}
+				}
+				reader.endObject();
+				if(isIt) {
+					res.add(createObjectFromString(parser));
+				}
+				isIt = true;
+				parser = "";
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return res;
+	}
+
 	@Override
 	public void save(Entity e) {
 		
@@ -148,7 +211,7 @@ public class JsonImportExport extends Storage{
 	public Entity createObjectFromString(String string) {
 		Entity entity = new Entity();
 		
-		String[] splitByComa = string.split(",");
+		String[] splitByComa = string.split("\n");
 		for(String s : splitByComa) {
 			String[] keyValueSplit = s.split(":");
 			if(keyValueSplit[0].equalsIgnoreCase("id")) {
@@ -156,7 +219,7 @@ public class JsonImportExport extends Storage{
 			}else if(keyValueSplit[0].equalsIgnoreCase("naziv")) {
 				entity.setNaziv(keyValueSplit[1]);
 			}else {
-
+				entity.getSimpleProperties().put(keyValueSplit[0], keyValueSplit[1]);
 			}
 			
 		}

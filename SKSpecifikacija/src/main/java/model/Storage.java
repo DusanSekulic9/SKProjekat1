@@ -10,6 +10,9 @@ public abstract class Storage {
 	private boolean autoincrement = true;
 	private int maxFiles;
 	protected File fileInUse = new File("");
+	protected String parser = "";
+	
+	public abstract List<Entity> pretraziFajl(String pretraga);
 	
 	public abstract void save(Entity e);
 	
