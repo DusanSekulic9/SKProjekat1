@@ -1,13 +1,11 @@
 package json;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 
@@ -17,7 +15,6 @@ import model.Storage;
 
 public class JsonImportExport extends Storage{
 	
-	private Gson gson = new Gson();
 	
 	
 	@Override
@@ -159,7 +156,7 @@ public class JsonImportExport extends Storage{
 			}else if(keyValueSplit[0].equalsIgnoreCase("naziv")) {
 				entity.setNaziv(keyValueSplit[1]);
 			}else {
-				entity.getAtributi().put(keyValueSplit[0], keyValueSplit[1]);
+
 			}
 			
 		}

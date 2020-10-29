@@ -6,18 +6,23 @@ public class Entity {
 	
 	private int id;
 	private String naziv;
-	private HashMap<String, Object> atributi = new HashMap<String, Object>();
+	private HashMap<String, Object> simpleProperties = new HashMap<String, Object>();
+	private HashMap<String, Entity> EntityProperties = new HashMap<String, Entity>();
 	
 	
-	public Entity(int id, String naziv, HashMap<String, Object> atributi) {
+	
+	
+	public Entity(int id, String naziv, HashMap<String, Object> simpleProperties,
+			HashMap<String, Entity> entityProperties) {
 		this.id = id;
 		this.naziv = naziv;
-		this.atributi = atributi;
+		this.simpleProperties = simpleProperties;
+		EntityProperties = entityProperties;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "id: " + id + "\tnaziv: " + naziv + "\tatributi: " + atributi.toString();
+		return "id: " + id + "\tnaziv: " + naziv + "\tatributi: " + simpleProperties.toString() + "\tentiteti:" + EntityProperties.toString();
 	}
 	
 	public Entity() {
@@ -40,13 +45,22 @@ public class Entity {
 		this.naziv = naziv;
 	}
 
-	public HashMap<String, Object> getAtributi() {
-		return atributi;
+	public HashMap<String, Object> getSimpleProperties() {
+		return simpleProperties;
 	}
 
-	public void setAtributi(HashMap<String, Object> atributi) {
-		this.atributi = atributi;
+	public void setSimpleProperties(HashMap<String, Object> simpleProperties) {
+		this.simpleProperties = simpleProperties;
 	}
+
+	public HashMap<String, Entity> getEntityProperties() {
+		return EntityProperties;
+	}
+
+	public void setEntityProperties(HashMap<String, Entity> entityProperties) {
+		EntityProperties = entityProperties;
+	}
+
 	
 	
 	

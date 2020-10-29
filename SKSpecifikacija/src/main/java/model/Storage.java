@@ -15,8 +15,9 @@ public abstract class Storage {
 	
 	public abstract void save(List<Entity> entities);
 	
-	public void save(int id, String naziv,  HashMap<String, Object> atributi) {
-		Entity e = new Entity(id, naziv,atributi);
+	public void save(int id, String naziv, HashMap<String, Object> simpleProperties,
+			HashMap<String, Entity> entityProperties) {
+		Entity e = new Entity(id, naziv,simpleProperties,entityProperties);
 		save(e);
 	}
 
