@@ -15,6 +15,8 @@ import model.Storage;
 
 public class JsonImportExport extends Storage{
 	
+	boolean isIt = false;
+	int pogodak = 0;
 	public List<Entity> pretraziFajl(String pretraga){
 		List<Entity> res = new ArrayList<Entity>();
 		String[] split = pretraga.split("\n");
@@ -33,8 +35,7 @@ public class JsonImportExport extends Storage{
 	}
 	
 	public List<Entity> pretraziEntitet(JsonReader reader,String[] pretraga) {
-		List<Entity> res = new ArrayList<Entity>();	
-		boolean isIt = true;
+		List<Entity> res = new ArrayList<Entity>();
 		try {
 			while(reader.hasNext()) {
 				reader.beginObject();
@@ -44,39 +45,64 @@ public class JsonImportExport extends Storage{
 						String value = reader.nextString();
 						for(String s : pretraga) {
 							String[] split = s.split(":");
+							//System.out.println(value + " " + split[1]);
 							if(key.equalsIgnoreCase(split[0]) && value.equalsIgnoreCase(split[1])) {
-								isIt = false;
+								//isIt = true;
+								pogodak += 1;
 							}
 						}
 						parser += key + ":" + value + "\n";
+//						System.out.println(parser);
+//						System.out.println("\n////////////////////////////////////////\n");
 					}else {
 						if(key.equalsIgnoreCase("simpleproperties")) {
 							reader.beginObject();
 							while(reader.peek() != JsonToken.END_OBJECT) {
 								key = reader.nextName();
 								String value = reader.nextString();
+								for(String s : pretraga) {
+									String[] split = s.split(":");
+									if(key.equalsIgnoreCase(split[0]) && value.equalsIgnoreCase(split[1])) {
+										//isIt = true;
+										pogodak++;
+									}
+								}
 								parser += key + ":" + value + "\n";
 							}
+//							System.out.println(parser);
+//							System.out.println("\n////////////////////////////////////////\n");
 							reader.endObject();
 						}else {
 							reader.beginObject();
-							String secondKey = reader.nextName();
-							parser += key + ":" + "noviEntitet";
-							res = pretraziEntitet(reader, pretraga);
+							if(reader.peek() == JsonToken.END_OBJECT) {
+								parser += "SS:entity\n";
+								break;
+							}
+							key = reader.nextName();
+							parser += key + ":entity\n";
+							res.addAll(pretraziEntitet(reader, pretraga));
+//							System.out.println(parser);
+//							System.out.println("\n////////////////////////////////////////\n");
 						}
 					}
 				}
-				reader.endObject();
-				if(isIt) {
-					res.add(createObjectFromString(parser));
+				while(reader.peek() == JsonToken.END_OBJECT) {
+					reader.endObject();
+					//System.out.println("kraj");
 				}
-				isIt = true;
+				if(pogodak == pretraga.length) {
+					res.add(createObjectFromString(parser));
+					//System.out.println("add" + res);
+				}
+				//isIt = false;
+				pogodak = 0;
 				parser = "";
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(res);
 		return res;
 	}
 
@@ -210,21 +236,36 @@ public class JsonImportExport extends Storage{
 	@Override
 	public Entity createObjectFromString(String string) {
 		Entity entity = new Entity();
-		
 		String[] splitByComa = string.split("\n");
+		boolean newEntity = false;
+		String parse = "";
+		String key = "";
+		System.out.println(string);
 		for(String s : splitByComa) {
 			String[] keyValueSplit = s.split(":");
-			if(keyValueSplit[0].equalsIgnoreCase("id")) {
-				entity.setId(Integer.parseInt(keyValueSplit[1]));
-			}else if(keyValueSplit[0].equalsIgnoreCase("naziv")) {
-				entity.setNaziv(keyValueSplit[1]);
-			}else {
-				entity.getSimpleProperties().put(keyValueSplit[0], keyValueSplit[1]);
+			if(newEntity) {
+				if(!keyValueSplit[1].equalsIgnoreCase("entity")) {
+					parse += s + "\n";
+				}else if(!key.equalsIgnoreCase("SS")){
+					newEntity = false;
+					entity.getEntityProperties().put(key, createObjectFromString(parse));
+				}
+			}else if(keyValueSplit[1].equalsIgnoreCase("entity")) {
+				key = keyValueSplit[0];
+				newEntity = true;
+			}else{
+				if(keyValueSplit[0].equalsIgnoreCase("id")) {
+					entity.setId(Integer.parseInt(keyValueSplit[1]));
+				}else if(keyValueSplit[0].equalsIgnoreCase("naziv")) {
+					entity.setNaziv(keyValueSplit[1]);
+				}else {
+					entity.getSimpleProperties().put(keyValueSplit[0], keyValueSplit[1]);
+				}
 			}
 			
+			
 		}
-		
-
+		System.out.println(entity);
 		return entity;
 	}
 

@@ -42,6 +42,8 @@ public class SearchView extends VBox {
 			@Override
 			public void handle(ActionEvent event) {
 				parser += tfKey.getText().trim() + ":" + tfValue.getText().trim() + "\n";
+				tfKey.setText("");
+				tfValue.setText("");
 				//ispis- singlton
 			}
 		});
@@ -51,15 +53,16 @@ public class SearchView extends VBox {
 			@Override
 			public void handle(ActionEvent event) {
 				parser += tfKey.getText().trim() + ":" + tfValue.getText().trim() + "";
-				if(parser.contains("id")) {
-					String[] split = parser.split(":");
-					int id = Integer.parseInt(split[1]);
-					StorageBase.getInstance().getStorage().search(id);
-				}
-				if(parser.contains("naziv")) {
-					String[] split = parser.split(":");
-					StorageBase.getInstance().getStorage().search(split[1]);
-				}
+//				if(parser.contains("id")) {
+//					String[] split = parser.split(":");
+//					int id = Integer.parseInt(split[1]);
+//					StorageBase.getInstance().getStorage().pretraziFajl(parser);
+//				}
+//				if(parser.contains("naziv")) {
+//					String[] split = parser.split(":");
+//					StorageBase.getInstance().getStorage().pretraziFajl(parser);
+//				}
+				StorageBase.getInstance().getStorage().pretraziFajl(parser);
 				tfKey.setText("");
 				tfValue.setText("");
 				parser = "";

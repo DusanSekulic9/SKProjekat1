@@ -14,6 +14,8 @@
 					"ime": "Reks",
 					"zivotinja": "kuce",
 					"starost": 6
+				},
+				"entityProperties": {
 				}
 			}
 		}
@@ -34,16 +36,46 @@
 				},
 				"entityProperties": {
 					"kolega": { 
-					"id": 5,
-					"naziv": "kolega",
-					"simpleProperties": {
-					"ime": "Marko",
-					"prezime": "Markovic"
+						"id": 5,
+						"naziv": "student",
+						"simpleProperties": {
+						"ime": "Marko",
+						"prezime": "Markovic"
+						},
+						"entityProperties": {
+						}
 					}
-					}
-				}
 				}
 			}
-			
 		}
+	},
+	{ 
+		"id": 6,
+		"naziv": "predmet",
+		"simpleProperties": {
+			"ime": "OOP"
+		},
+		"entityProperties": {
+			"profesor": {
+				"id": 7,
+				"naziv": "profesor",
+				"simpleProperties": {
+					"ime": "Ana",
+					"prezime": "Anic"
+				},
+				"entityProperties": {
+					"kolega": { 
+						"id": 8,
+						"naziv": "kolega",
+						"simpleProperties": {
+						"ime": "Marko",
+						"prezime": "Markovic"
+						},
+						"entityProperties": {
+						}
+					}
+				}
+			}
+		}
+	}
 ]
