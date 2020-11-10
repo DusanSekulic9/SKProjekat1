@@ -42,14 +42,14 @@ public class JsonImportExport extends Storage{
 					String key = reader.nextName();
 					if(reader.peek() != JsonToken.BEGIN_OBJECT) {
 						String value = reader.nextString();
-						for(String s : pretraga) {
-							String[] split = s.split(":");
-							//System.out.println(value + " " + split[1]);
-							if(key.equalsIgnoreCase(split[0]) && value.equalsIgnoreCase(split[1])) {
-								//isIt = true;
-								pogodak += 1;
-							}
-						}
+//						for(String s : pretraga) {
+//							String[] split = s.split(":");
+//							//System.out.println(value + " " + split[1]);
+//							if(key.equalsIgnoreCase(split[0]) && value.equalsIgnoreCase(split[1])) {
+//								//isIt = true;
+//								pogodak += 1;
+//							}
+//						}
 						parser += key + ":" + value + "\n";
 //						System.out.println(parser);
 //						System.out.println("\n////////////////////////////////////////\n");
@@ -59,13 +59,13 @@ public class JsonImportExport extends Storage{
 							while(reader.peek() != JsonToken.END_OBJECT) {
 								key = reader.nextName();
 								String value = reader.nextString();
-								for(String s : pretraga) {
-									String[] split = s.split(":");
-									if(key.equalsIgnoreCase(split[0]) && value.equalsIgnoreCase(split[1])) {
-										//isIt = true;
-										pogodak++;
-									}
-								}
+//								for(String s : pretraga) {
+//									String[] split = s.split(":");
+//									if(key.equalsIgnoreCase(split[0]) && value.equalsIgnoreCase(split[1])) {
+//										//isIt = true;
+//										pogodak++;
+//									}
+//								}
 								parser += key + ":" + value + "\n";
 							}
 //							System.out.println(parser);
@@ -89,10 +89,10 @@ public class JsonImportExport extends Storage{
 					reader.endObject();
 					//System.out.println("kraj");
 				}
-				if(pogodak == pretraga.length) {
+				//if(pogodak == pretraga.length) {
 					entities.add(createObjectFromString(parser));
 					//System.out.println("add" + res);
-				}
+				//}
 				//isIt = false;
 				pogodak = 0;
 				parser = "";
