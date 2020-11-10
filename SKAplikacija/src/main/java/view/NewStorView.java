@@ -43,7 +43,6 @@ public class NewStorView extends VBox {
 		update.setOnAction(new CreateUpdateController());
 		search.setOnAction(new EventHandler<ActionEvent>() {
 			
-			@Override
 			public void handle(ActionEvent event) {
 				Scene scene = new Scene(new SearchView(), 400, 400);
 				Main.window2.setScene(scene);
