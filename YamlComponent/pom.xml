@@ -3,7 +3,7 @@
   <groupId>SK1</groupId>
   <artifactId>YamlComponent</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <dependencies>
+<dependencies>
   	<!-- https://mvnrepository.com/artifact/org.yaml/snakeyaml -->
 	<dependency>
     	<groupId>org.yaml</groupId>
@@ -21,5 +21,5 @@
   		<artifactId>SKSpecifikacija</artifactId>
   		<version>0.0.1-SNAPSHOT</version>	
 	</dependency>
-  </dependencies>
+</dependencies>
 </project>

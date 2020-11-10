@@ -19,6 +19,7 @@ import json.JsonImportExport;
 import main.Main;
 import model.Storage;
 import model.StorageBase;
+import yaml.YamlImportExport;
 
 public class ChoosingView extends HBox{
 	
@@ -43,7 +44,8 @@ public class ChoosingView extends HBox{
 				DirectoryChooser dc = new DirectoryChooser();
 				File f = dc.showDialog(Main.window);
 				if(f != null) {
-					Storage storage = new JsonImportExport();
+				//	Storage storage = new JsonImportExport();
+					Storage storage = new YamlImportExport();
 					storage.setFileInUse(f);
 					StorageBase.getInstance().setStorage(storage);
 					Scene scene = new Scene(NewStorView.getInstance(), 500, 500);
