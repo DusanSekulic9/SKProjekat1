@@ -19,7 +19,7 @@ public class JsonImportExport extends Storage{
 	boolean isIt = false;
 	int pogodak = 0;
 	public void pretraziFajl(File file,String pretraga){
-		String[] split = pretraga.split("\n");
+		String[] split = pretraga.split("\n"); 
 		try {
 			JsonReader reader = new JsonReader(new FileReader(file));
 			reader.beginArray();

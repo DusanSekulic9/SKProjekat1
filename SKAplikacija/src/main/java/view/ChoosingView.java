@@ -19,6 +19,7 @@ import json.JsonImportExport;
 import main.Main;
 import model.Storage;
 import model.StorageBase;
+import yaml.YamlImportExport;
 
 public class ChoosingView extends HBox{
 	
@@ -44,7 +45,8 @@ public class ChoosingView extends HBox{
 				File f = dc.showDialog(Main.window);
 				//File f = new File("C:\\Users\\Dusan\\git\\SKProjekat1\\SKAplikacija\\data\\data.json"); //fc.showOpenDialog(Main.window);
 				if(f != null) {
-					Storage storage = new JsonImportExport();
+				//	Storage storage = new JsonImportExport();
+					Storage storage = new YamlImportExport();
 					storage.setFileInUse(f);
 					StorageBase.getInstance().setStorage(storage);
 					Scene scene = new Scene(new NewStorView(), 500, 500);
