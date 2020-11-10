@@ -3,6 +3,7 @@ package view;
 
 import java.io.File;
 
+
 import controller.NewStorController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import json.JsonImportExport;
 import main.Main;
@@ -38,8 +40,11 @@ public class ChoosingView extends HBox{
 			@Override
 			public void handle(ActionEvent event) {
 				
-				FileChooser fc = new FileChooser();
-				File f = new File("C:\\Users\\Dusan\\git\\SKProjekat1\\SKAplikacija\\data\\data.json"); //fc.showOpenDialog(Main.window);
+				DirectoryChooser dc = new DirectoryChooser();
+				File f = dc.showDialog(Main.window);
+				System.out.println(f.getAbsolutePath());
+				System.out.println(f.listFiles());
+				//File f = new File("C:\\Users\\Dusan\\git\\SKProjekat1\\SKAplikacija\\data\\data.json"); //fc.showOpenDialog(Main.window);
 				if(f != null) {
 					Storage storage = new JsonImportExport();
 					storage.setFileInUse(f);

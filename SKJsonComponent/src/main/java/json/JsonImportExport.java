@@ -17,13 +17,12 @@ public class JsonImportExport extends Storage{
 	
 	boolean isIt = false;
 	int pogodak = 0;
-	public List<Entity> pretraziFajl(String pretraga){
-		List<Entity> res = new ArrayList<Entity>();
+	public void pretraziFajl(String pretraga){
 		String[] split = pretraga.split("\n");
 		try {
 			JsonReader reader = new JsonReader(new FileReader(fileInUse));
 			reader.beginArray();
-				res = pretraziEntitet(reader, split);
+				pretraziEntitet(reader, split);
 			reader.endArray();
 			
 			reader.close();
@@ -31,11 +30,10 @@ public class JsonImportExport extends Storage{
 		}catch (Exception e) {
 			
 		}
-		return res;
 	}
 	
-	public List<Entity> pretraziEntitet(JsonReader reader,String[] pretraga) {
-		List<Entity> res = new ArrayList<Entity>();
+	public void pretraziEntitet(JsonReader reader,String[] pretraga) {
+		//List<Entity> res = new ArrayList<Entity>();
 		try {
 			while(reader.hasNext()) {
 				reader.beginObject();
@@ -80,7 +78,7 @@ public class JsonImportExport extends Storage{
 							}
 							key = reader.nextName();
 							parser += key + ":entity\n";
-							res.addAll(pretraziEntitet(reader, pretraga));
+							pretraziEntitet(reader, pretraga);
 //							System.out.println(parser);
 //							System.out.println("\n////////////////////////////////////////\n");
 						}
@@ -91,7 +89,8 @@ public class JsonImportExport extends Storage{
 					//System.out.println("kraj");
 				}
 				if(pogodak == pretraga.length) {
-					res.add(createObjectFromString(parser));
+					entities.add(createObjectFromString(parser));
+					System.out.println(entities);
 					//System.out.println("add" + res);
 				}
 				//isIt = false;
@@ -102,10 +101,7 @@ public class JsonImportExport extends Storage{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(res);
-		return res;
 	}
-
 	@Override
 	public void save(Entity e) {
 		
@@ -199,8 +195,8 @@ public class JsonImportExport extends Storage{
 				}
 				if(isIt) {
 					Entity ent = createObjectFromString(parser);
-					res.add(ent);
-					System.out.println(ent);
+					entities.add(ent);
+					//System.out.println(ent);
 				}
 				parser = "";
 				isIt = true;
@@ -244,10 +240,8 @@ public class JsonImportExport extends Storage{
 		for(String s : splitByComa) {
 			String[] keyValueSplit = s.split(":");
 			if(newEntity) {
-				if(!keyValueSplit[1].equalsIgnoreCase("entity")) {
-					parse += s + "\n";
-				}else if(!key.equalsIgnoreCase("SS")){
-					newEntity = false;
+				parse += s + "\n";
+				if(keyValueSplit[1].equalsIgnoreCase("entity") && keyValueSplit[0].equalsIgnoreCase("SS")) {
 					entity.getEntityProperties().put(key, createObjectFromString(parse));
 				}
 			}else if(keyValueSplit[1].equalsIgnoreCase("entity")) {

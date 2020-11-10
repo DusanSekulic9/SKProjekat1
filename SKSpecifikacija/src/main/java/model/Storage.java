@@ -1,18 +1,19 @@
 package model;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public abstract class Storage {
 	
-	private List<Entity> entities;
-	private boolean autoincrement = true;
-	private int maxFiles;
+	protected List<Entity> entities = new ArrayList<Entity>();
+	protected boolean autoincrement = true;
+	protected int maxFiles;
 	protected File fileInUse = new File("");
 	protected String parser = "";
 	
-	public abstract List<Entity> pretraziFajl(String pretraga);
+	public abstract void pretraziFajl(String pretraga);
 	
 	public abstract void save(Entity e);
 	
@@ -59,6 +60,12 @@ public abstract class Storage {
 
 	public void setFileInUse(File fileInUse) {
 		this.fileInUse = fileInUse;
+	}
+	
+	public void pretrazi(String pretraga) {
+		entities.clear();
+		
+		
 	}
 	
 }
