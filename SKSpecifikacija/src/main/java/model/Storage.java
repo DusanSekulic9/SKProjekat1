@@ -13,7 +13,7 @@ public abstract class Storage {
 	protected File fileInUse = new File("");
 	protected String parser = "";
 	
-	public abstract void pretraziFajl(String pretraga);
+	public abstract void pretraziFajl(File file,String pretraga);
 	
 	public abstract void save(Entity e);
 	
@@ -64,7 +64,9 @@ public abstract class Storage {
 	
 	public void pretrazi(String pretraga) {
 		entities.clear();
-		
+		for(File f : fileInUse.listFiles()) {
+			pretraziFajl(f, pretraga);
+		}
 		
 	}
 	

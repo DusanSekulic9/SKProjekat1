@@ -1,5 +1,6 @@
 package json;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,10 +18,10 @@ public class JsonImportExport extends Storage{
 	
 	boolean isIt = false;
 	int pogodak = 0;
-	public void pretraziFajl(String pretraga){
+	public void pretraziFajl(File file,String pretraga){
 		String[] split = pretraga.split("\n");
 		try {
-			JsonReader reader = new JsonReader(new FileReader(fileInUse));
+			JsonReader reader = new JsonReader(new FileReader(file));
 			reader.beginArray();
 				pretraziEntitet(reader, split);
 			reader.endArray();

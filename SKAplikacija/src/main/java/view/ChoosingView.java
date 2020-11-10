@@ -42,8 +42,6 @@ public class ChoosingView extends HBox{
 				
 				DirectoryChooser dc = new DirectoryChooser();
 				File f = dc.showDialog(Main.window);
-				System.out.println(f.getAbsolutePath());
-				System.out.println(f.listFiles());
 				//File f = new File("C:\\Users\\Dusan\\git\\SKProjekat1\\SKAplikacija\\data\\data.json"); //fc.showOpenDialog(Main.window);
 				if(f != null) {
 					Storage storage = new JsonImportExport();

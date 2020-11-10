@@ -62,7 +62,7 @@ public class SearchView extends VBox {
 //					String[] split = parser.split(":");
 //					StorageBase.getInstance().getStorage().pretraziFajl(parser);
 //				}
-				StorageBase.getInstance().getStorage().pretraziFajl(parser);
+				StorageBase.getInstance().getStorage().pretrazi(parser);;
 				tfKey.setText("");
 				tfValue.setText("");
 				parser = "";
