@@ -1,0 +1,25 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>SK1</groupId>
+  <artifactId>YamlComponent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+  	<!-- https://mvnrepository.com/artifact/org.yaml/snakeyaml -->
+	<dependency>
+    	<groupId>org.yaml</groupId>
+    	<artifactId>snakeyaml</artifactId>
+    	<version>1.27</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml -->
+	<dependency>
+	    <groupId>com.fasterxml.jackson.dataformat</groupId>
+	    <artifactId>jackson-dataformat-yaml</artifactId>
+	    <version>2.11.2</version>
+	</dependency>
+  	<dependency>
+		<groupId>SK1</groupId>
+  		<artifactId>SKSpecifikacija</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>	
+	</dependency>
+  </dependencies>
+</project>
