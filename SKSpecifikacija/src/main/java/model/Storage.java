@@ -71,6 +71,7 @@ public abstract class Storage {
 		for(File f : fileInUse.listFiles()) {
 			pretraziFajl(f, pretraga);
 		}
+		search(pretraga);
 		return entities;
 	}
 	

@@ -2,7 +2,10 @@ package view;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -11,11 +14,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import main.Main;
 import model.Entity;
 
-public class CreateUpdateView extends VBox{
+public class CreateView extends VBox{
 	
-	private static CreateUpdateView instance = null;
+	private static CreateView instance = null;
 	private TextField tfId;
 	private TextField tfNaziv;
 	private TextArea taSimpleProperties;
@@ -23,23 +27,36 @@ public class CreateUpdateView extends VBox{
 	private Button save;
 	private ObservableList<Entity> list = FXCollections.observableArrayList();
 	private Button add;
-	private Button edit;
 	
-	private CreateUpdateView() {
+	public CreateView() {
 		init();
 		addElements();
 		addActions();
 	}
 
-	public static CreateUpdateView getInstance() {
+	public static CreateView getInstance() {
 		if(instance == null) {
-			instance = new CreateUpdateView();
+			instance = new CreateView();
 		}
 		return instance;
 	}
 	
 	private void addActions() {
-		
+		add.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				CreateView cv = new CreateView();
+				cv.getAdd().setDisable(true);
+				Scene scene = new Scene(cv, 400, 400);
+				Main.window4.setScene(scene);
+				Main.window4.show();
+			}
+		});
+	}
+	
+	public Button getAdd() {
+		return add;
 	}
 
 	private void addElements() {
@@ -58,8 +75,6 @@ public class CreateUpdateView extends VBox{
 		this.getChildren().add(gp);
 		HBox hbox = new HBox();
 		hbox.getChildren().add(add);
-		hbox.getChildren().add(edit);
-		edit.setDisable(true);
 		hbox.setAlignment(Pos.CENTER);
 		hbox.setSpacing(20);
 		this.getChildren().add(hbox);
@@ -78,8 +93,7 @@ public class CreateUpdateView extends VBox{
 		this.lvEntityProperties = new ListView<Entity>();
 		this.lvEntityProperties.setItems(list);
 		this.save = new Button("Save");
-		this.add = new Button("Add");
-		this.edit = new Button("Edit");
+		this.add = new Button("Add Entity");
 	}
 
 	public TextField getTfId() {
@@ -130,8 +144,8 @@ public class CreateUpdateView extends VBox{
 		this.list = list;
 	}
 
-	public static void setInstance(CreateUpdateView instance) {
-		CreateUpdateView.instance = instance;
+	public static void setInstance(CreateView instance) {
+		CreateView.instance = instance;
 	}
 	
 	

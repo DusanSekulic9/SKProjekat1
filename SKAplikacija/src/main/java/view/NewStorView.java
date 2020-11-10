@@ -2,7 +2,6 @@ package view;
 
 import java.util.HashMap;
 
-import controller.CreateUpdateController;
 
 import controller.NewStorController;
 import javafx.collections.FXCollections;
@@ -35,12 +34,10 @@ public class NewStorView extends VBox {
 	private NewStorView() {
 		this.create = new Button("Add");
 		this.update = new Button("Update");
-		update.setDisable(true);
 		this.delete = new Button("Delete");
 		this.search = new Button("Search");
 		this.save = new Button("Save");
-		save.setDisable(true);
-		this.tw = new TableView<>();
+		this.tw = new TableView<Entity>();
 		addElements();
 		addActions();
 	}
@@ -71,8 +68,24 @@ public class NewStorView extends VBox {
 	}
 
 	private void addActions() {
-		create.setOnAction(new CreateUpdateController());
-		update.setOnAction(new CreateUpdateController());
+		create.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				Scene scene = new Scene(new CreateView(), 400, 400);
+				Main.window2.setScene(scene);
+				Main.window2.show();
+			}
+		});
+		update.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				Scene scene = new Scene(new UpdateView(), 400, 400);
+				Main.window2.setScene(scene);
+				Main.window2.show();
+			}
+		});
 		search.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override

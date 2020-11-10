@@ -11,6 +11,7 @@ public class Main extends Application{
 	public static Stage window;
 	public static Stage window2 = new Stage();
 	public static Stage window3 = new Stage();
+	public static Stage window4 = new Stage();
 	
 
 	
