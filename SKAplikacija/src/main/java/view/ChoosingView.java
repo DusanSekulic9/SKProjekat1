@@ -38,14 +38,13 @@ public class ChoosingView extends HBox{
 		this.newStor.setOnAction(new NewStorController());
 		this.openStor.setOnAction(new EventHandler<ActionEvent>() {
 			
-			@Override
 			public void handle(ActionEvent event) {
 				
 				DirectoryChooser dc = new DirectoryChooser();
 				File f = dc.showDialog(Main.window);
 				if(f != null) {
-					Storage storage = new JsonImportExport();
-					//Storage storage = new YamlImportExport();
+					//Storage storage = new JsonImportExport();
+					Storage storage = new YamlImportExport();
 					storage.setFileInUse(f);
 					StorageBase.getInstance().setStorage(storage);
 					Scene scene = new Scene(NewStorView.getInstance(), 500, 500);

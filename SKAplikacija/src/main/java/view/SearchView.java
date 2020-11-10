@@ -39,7 +39,6 @@ public class SearchView extends VBox {
 	private void addActions() {
 		btnAdd.setOnAction(new EventHandler<ActionEvent>() {
 			
-			@Override
 			public void handle(ActionEvent event) {
 				parser += tfKey.getText().trim() + ":" + tfValue.getText().trim() + "\n";
 				tfKey.setText("");
@@ -50,7 +49,6 @@ public class SearchView extends VBox {
 		
 		btnSearch.setOnAction(new EventHandler<ActionEvent>() {
 			
-			@Override
 			public void handle(ActionEvent event) {
 				parser += tfKey.getText().trim() + ":" + tfValue.getText().trim() + "";
 //				if(parser.contains("id")) {
