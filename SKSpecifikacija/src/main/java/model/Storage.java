@@ -34,7 +34,38 @@ public abstract class Storage {
 			this.autoincrement = autoincrement;
 	}
 
-	public abstract Entity createObjectFromString(String string);
+	public Entity createObjectFromString(String string) {
+		Entity entity = new Entity();
+		String[] splitByComa = string.split("\n");
+		boolean newEntity = false;
+		String parse = "";
+		String key = "";
+		System.out.println(string);
+		for(String s : splitByComa) {
+			String[] keyValueSplit = s.split(":");
+			if(newEntity) {
+				parse += s + "\n";
+				if(keyValueSplit[1].equalsIgnoreCase("entity") && keyValueSplit[0].equalsIgnoreCase("SS")) {
+					entity.getEntityProperties().put(key, createObjectFromString(parse));
+				}
+			}else if(keyValueSplit[1].equalsIgnoreCase("entity")) {
+				key = keyValueSplit[0];
+				newEntity = true;
+			}else{
+				if(keyValueSplit[0].equalsIgnoreCase("id")) {
+					entity.setId(Integer.parseInt(keyValueSplit[1]));
+				}else if(keyValueSplit[0].equalsIgnoreCase("naziv")) {
+					entity.setNaziv(keyValueSplit[1]);
+				}else {
+					entity.getSimpleProperties().put(keyValueSplit[0], keyValueSplit[1]);
+				}
+			}
+			
+			
+		}
+		System.out.println(entity);
+		return entity;
+	}
 	
 	public abstract void makeNewEntity();
 	

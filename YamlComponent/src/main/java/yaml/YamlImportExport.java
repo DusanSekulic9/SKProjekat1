@@ -24,31 +24,22 @@ public class YamlImportExport extends Storage {
 	
 	@Override
 	public void pretraziFajl(File file, String pretraga) {
-		/*
-		 * 
-		 * I ended up using SnakeYaml and made some split strings to solve my issue.
-			Loaded the yaml file to Object and then into a Map, then split the result from the Map into String[] and then in a for loop I read out the name from the String[]. I did the same with groups.
-		 * 
-		 * 
-		 * 
-		 */
-		String[] split = pretraga.split("\n");		// id : 2
+		String[] split = pretraga.split("\n");		
 		ObjectMapper om = new ObjectMapper(new YAMLFactory());
 		try {
 			
-			List<Entity> en = om.readValue(file, new TypeReference<List<Entity>>() {});
-			System.out.println(en);
-			/*
-			 *  Yaml yaml = new Yaml();
-				InputStream inputStream = new FileInputStream(file);;
-				Map<String, Object> obj = yaml.load(inputStream);  //{firstName=John, lastName=Doe, age=20}
-			 * 
-			 * 
-			 */
+			entities = om.readValue(file, new TypeReference<List<Entity>>() {});
+			System.out.println(entities);			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
+		/*
+		 *  Yaml yaml = new Yaml();
+			InputStream inputStream = new FileInputStream(file);;
+			Map<String, Object> obj = yaml.load(inputStream);  //{firstName=John, lastName=Doe, age=20}
+		 * 
+		 * 
+		 */
 	/*	String[] split = pretraga.split("\n");
 		try {
 			JsonReader reader = new JsonReader(new FileReader(file));
