@@ -12,7 +12,7 @@ public class NewStorController implements EventHandler<ActionEvent> {
 
 	@Override
 	public void handle(ActionEvent event) {
-		Scene scene = new Scene(new NewStorView(), 500, 500);
+		Scene scene = new Scene(NewStorView.getInstance(), 500, 500);
 		Main.window.setScene(scene);
 	}
 

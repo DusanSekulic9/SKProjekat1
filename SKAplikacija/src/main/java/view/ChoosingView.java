@@ -42,12 +42,11 @@ public class ChoosingView extends HBox{
 				
 				DirectoryChooser dc = new DirectoryChooser();
 				File f = dc.showDialog(Main.window);
-				//File f = new File("C:\\Users\\Dusan\\git\\SKProjekat1\\SKAplikacija\\data\\data.json"); //fc.showOpenDialog(Main.window);
 				if(f != null) {
 					Storage storage = new JsonImportExport();
 					storage.setFileInUse(f);
 					StorageBase.getInstance().setStorage(storage);
-					Scene scene = new Scene(new NewStorView(), 500, 500);
+					Scene scene = new Scene(NewStorView.getInstance(), 500, 500);
 					Main.window.setScene(scene);
 				}				
 			}

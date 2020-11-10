@@ -24,6 +24,10 @@ public abstract class Storage {
 		Entity e = new Entity(id, naziv,simpleProperties,entityProperties);
 		save(e);
 	}
+	
+	public List<Entity> getEntities() {
+		return entities;
+	}
 
 	public boolean isAutoincrement() {
 		return autoincrement;
@@ -62,12 +66,12 @@ public abstract class Storage {
 		this.fileInUse = fileInUse;
 	}
 	
-	public void pretrazi(String pretraga) {
+	public List<Entity> pretrazi(String pretraga) {
 		entities.clear();
 		for(File f : fileInUse.listFiles()) {
 			pretraziFajl(f, pretraga);
 		}
-		
+		return entities;
 	}
 	
 }

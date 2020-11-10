@@ -91,7 +91,6 @@ public class JsonImportExport extends Storage{
 				}
 				if(pogodak == pretraga.length) {
 					entities.add(createObjectFromString(parser));
-					System.out.println(entities);
 					//System.out.println("add" + res);
 				}
 				//isIt = false;

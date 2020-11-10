@@ -1,8 +1,12 @@
 package view;
 
+import java.util.HashMap;
+
 import controller.CreateUpdateController;
 
 import controller.NewStorController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -18,26 +22,54 @@ import model.Entity;
 
 public class NewStorView extends VBox {
 	
-	
+	private static NewStorView instance = null;
 	private Button create;
 	private Button update;
 	private Button delete;
 	private Button search;
 	private Button save;
 	private TableView<Entity> tw;
+	private ObservableList<Entity> list = FXCollections.observableArrayList();
 	
 	
-	public NewStorView() {
+	private NewStorView() {
 		this.create = new Button("Add");
 		this.update = new Button("Update");
+		update.setDisable(true);
 		this.delete = new Button("Delete");
 		this.search = new Button("Search");
 		this.save = new Button("Save");
+		save.setDisable(true);
 		this.tw = new TableView<>();
 		addElements();
 		addActions();
 	}
 	
+	public TableView<Entity> getTw() {
+		return tw;
+	}
+
+
+
+	public void setTw(TableView<Entity> tw) {
+		this.tw = tw;
+	}
+
+	public static NewStorView getInstance() {
+		if(instance == null) {
+			instance = new NewStorView();
+		}
+		return instance;
+	}
+
+	public ObservableList<Entity> getList() {
+		return list;
+	}
+
+	public void setList(ObservableList<Entity> list) {
+		this.list = list;
+	}
+
 	private void addActions() {
 		create.setOnAction(new CreateUpdateController());
 		update.setOnAction(new CreateUpdateController());
@@ -62,17 +94,21 @@ public class NewStorView extends VBox {
 		hb.setSpacing(5);
 		hb.setAlignment(Pos.CENTER);
 		this.getChildren().add(hb);
-		this.getChildren().add(save);
-		TableColumn<String, String> id = new TableColumn<String, String>("Id");
-		TableColumn<String, String>  naziv = new TableColumn<String, String>("Naziv");
-		TableColumn<String, String>  atributi = new TableColumn<String, String>("Atributi");
-		
+		TableColumn<Entity, String> id = new TableColumn<Entity, String>("Id");
+		TableColumn<Entity, String>  naziv = new TableColumn<Entity, String>("Naziv");
+		TableColumn<Entity, HashMap<String, String>>  atributi = new TableColumn<Entity,  HashMap<String, String>>("Atributi");
+		TableColumn<Entity, HashMap<String, Entity>> entiteti = new TableColumn<Entity, HashMap<String, Entity>>("Entiteti");
 		id.setCellValueFactory(new PropertyValueFactory<>("id"));
 		naziv.setCellValueFactory(new PropertyValueFactory<>("naziv"));
-		atributi.setCellValueFactory(new PropertyValueFactory<>("atributi"));
+		atributi.setCellValueFactory(new PropertyValueFactory<>("simpleProperties"));
+		entiteti.setCellValueFactory(new PropertyValueFactory<>("entityProperties"));
 		
-		this.tw.getColumns().addAll();
+		this.tw.getColumns().addAll(id, naziv,atributi,entiteti);
+		tw.setItems(list);
 		this.getChildren().add(tw);
+		this.getChildren().add(save);
+		this.setSpacing(20);
+		this.setAlignment(Pos.CENTER);
 	}
 	
 	
