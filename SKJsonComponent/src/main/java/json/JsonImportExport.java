@@ -18,12 +18,11 @@ public class JsonImportExport extends Storage{
 	
 	boolean isIt = false;
 	int pogodak = 0;
-	public void pretraziFajl(File file,String pretraga){
-		String[] split = pretraga.split("\n"); 
+	public void pretraziFajl(File file){ 
 		try {
 			JsonReader reader = new JsonReader(new FileReader(file));
 			reader.beginArray();
-				pretraziEntitet(reader, split);
+				pretraziEntitet(reader);
 			reader.endArray();
 			
 			reader.close();
@@ -33,7 +32,7 @@ public class JsonImportExport extends Storage{
 		}
 	}
 	
-	public void pretraziEntitet(JsonReader reader,String[] pretraga) {
+	public void pretraziEntitet(JsonReader reader) {
 		//List<Entity> res = new ArrayList<Entity>();
 		try {
 			while(reader.hasNext()) {
@@ -79,7 +78,7 @@ public class JsonImportExport extends Storage{
 							}
 							key = reader.nextName();
 							parser += key + ":entity\n";
-							pretraziEntitet(reader, pretraga);
+							pretraziEntitet(reader);
 //							System.out.println(parser);
 //							System.out.println("\n////////////////////////////////////////\n");
 						}

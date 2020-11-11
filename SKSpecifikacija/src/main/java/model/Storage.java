@@ -12,8 +12,9 @@ public abstract class Storage {
 	protected int maxFiles;
 	protected File fileInUse = new File("");
 	protected String parser = "";
+	protected List<Entity> searched = new ArrayList<>();
 	
-	public abstract void pretraziFajl(File file,String pretraga);
+	public abstract void pretraziFajl(File file);
 	
 	public abstract void save(Entity e);
 	
@@ -97,12 +98,87 @@ public abstract class Storage {
 		this.fileInUse = fileInUse;
 	}
 	
-	public List<Entity> pretrazi(String pretraga) {
+	public boolean pretraga(Entity e, String str){
+		String[] split = str.split("\n");
+		boolean b = false;
+		boolean provere = true;
+		for(String s : split) {
+			String[] sp = s.split(":");
+				if(sp[0].equalsIgnoreCase("id")) {
+					if(Integer.parseInt(sp[1]) != e.getId()) {
+						provere = false;
+					}
+				}
+				if(sp[0].equalsIgnoreCase("naziv")) {
+					if(!sp[1].equalsIgnoreCase(e.getNaziv())){
+						provere = false;
+					}
+				}
+				if(e.getSimpleProperties().size() > 0) {
+					boolean bo = true;
+					for(String key : e.getSimpleProperties().keySet()) {
+						if(key.equalsIgnoreCase(sp[0])) {
+							b=false;
+							break;
+						}
+					}
+					for(Object value : e.getSimpleProperties().values()) {
+						String v;
+						if(value instanceof Integer) {
+							v = value.toString();
+						}
+						else {
+							v = (String)value;
+						}
+						if(v.equalsIgnoreCase(sp[1])) {
+							b=false;
+							break;
+						}
+					}
+					if(bo)
+						provere = false;
+				}
+				if(e.getEntityProperties().size() > 0) {
+					boolean bo=true;
+					for(String ss : e.getEntityProperties().keySet()) {
+						if(ss.equalsIgnoreCase(sp[0])) {
+							bo = false;
+							break;
+						}
+					}
+					for(Entity ent : e.getEntityProperties().values()) {
+						if(pretraga(ent, str)) {
+							bo=false;
+							break;
+						}
+					}
+					if(bo)
+						provere = false;
+					}
+				else {
+					provere = false;
+				}
+				}
+		if(provere) {
+			searched.add(e);
+		}		
+		return provere;	
+		}
+	
+	
+	
+	public List<Entity> pretrazi(String s) {
 		entities.clear();
 		for(File f : fileInUse.listFiles()) {
-			pretraziFajl(f, pretraga);
+			pretraziFajl(f);
 		}
-		return entities;
+		for(Entity e : entities) {
+			pretraga(e,s);
+		}
+		return searched;
 	}
+	
+	
+	
 	
 }

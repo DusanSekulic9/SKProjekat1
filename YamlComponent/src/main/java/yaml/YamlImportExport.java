@@ -23,8 +23,7 @@ public class YamlImportExport extends Storage {
 
 	
 	@Override
-	public void pretraziFajl(File file, String pretraga) {
-		String[] split = pretraga.split("\n");		
+	public void pretraziFajl(File file) {	
 		ObjectMapper om = new ObjectMapper(new YAMLFactory());
 		try {
 			

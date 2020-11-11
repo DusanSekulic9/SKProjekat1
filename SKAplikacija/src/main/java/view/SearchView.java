@@ -61,8 +61,7 @@ public class SearchView extends VBox {
 //					StorageBase.getInstance().getStorage().pretraziFajl(parser);
 //				}
 				//NewStorView.getInstance().getList().clear();
-				StorageBase.getInstance().getStorage().pretrazi(parser);
-				NewStorView.getInstance().getList().addAll(StorageBase.getInstance().getStorage().getEntities());
+				NewStorView.getInstance().getList().addAll(StorageBase.getInstance().getStorage().pretrazi(parser));
 				tfKey.setText("");
 				tfValue.setText("");
 				parser = "";
