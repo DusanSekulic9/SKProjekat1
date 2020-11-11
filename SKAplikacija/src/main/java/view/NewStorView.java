@@ -113,6 +113,30 @@ public class NewStorView extends VBox {
 				Main.window2.show();
 			}
 		});
+		delete.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				Entity e = tw.getSelectionModel().getSelectedItem();
+				if(e == null) {
+					Alert a = new Alert(AlertType.ERROR,"Selektujte element za brisanje u tabeli");
+					a.show();
+					return;
+				}
+				for(Entity ent : StorageBase.getInstance().getStorage().getEntities()) {
+					if(ent.equals(e)) {
+						StorageBase.getInstance().getStorage().getEntities().remove(e);
+					}
+				}
+				for(Entity ent : StorageBase.getInstance().getStorage().getNewEntities()) {
+					if(ent.equals(e)) {
+						StorageBase.getInstance().getStorage().getNewEntities().remove(e);
+					}
+				}
+				list.remove(e);
+				save.fire();
+			}
+		});
 		search.setOnAction(new EventHandler<ActionEvent>() {
 			
 			public void handle(ActionEvent event) {
