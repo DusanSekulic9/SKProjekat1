@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 
@@ -255,13 +256,11 @@ public class JsonImportExport extends Storage{
 					entity.getSimpleProperties().put(keyValueSplit[0], keyValueSplit[1]);
 				}
 			}
-			
-			
 		}
 		return entity;
 	}
 
-
+	
 	
 	
 

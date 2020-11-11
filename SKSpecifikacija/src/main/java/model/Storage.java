@@ -7,8 +7,9 @@ import java.util.List;
 
 public abstract class Storage {
 
+	private List<Entity> newEntities = new ArrayList<Entity>();
 	protected List<Entity> entities = new ArrayList<Entity>();
-	protected boolean autoincrement = true;
+	protected boolean autoincrement = false;
 	protected int maxFiles;
 	protected File fileInUse = new File("");
 	protected String parser = "";
@@ -154,11 +155,22 @@ public abstract class Storage {
 		for (File f : fileInUse.listFiles()) {
 			pretraziFajl(f);
 		}
+		entities.addAll(newEntities);
 		for (Entity e : entities) {
 			pretraga(e, s);
 			System.out.println(searched);
 		}
 		return searched;
 	}
+
+	public List<Entity> getNewEntities() {
+		return newEntities;
+	}
+
+	public void setNewEntities(List<Entity> newEntities) {
+		this.newEntities = newEntities;
+	}
+	
+	
 
 }

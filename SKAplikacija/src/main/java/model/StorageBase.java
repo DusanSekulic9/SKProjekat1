@@ -10,10 +10,25 @@ public class StorageBase {
 	private static StorageBase instance;
 	private Storage storage;
 	private ObservableList<EntityForView> efv = FXCollections.observableArrayList();
+	private Entity inUse;
 	
 	private StorageBase() {
 
 	}
+
+	
+	
+	public Entity getInUse() {
+		return inUse;
+	}
+
+
+
+	public void setInUse(Entity inUse) {
+		this.inUse = inUse;
+	}
+
+
 
 	public static StorageBase getInstance() {
 		if(instance == null) {

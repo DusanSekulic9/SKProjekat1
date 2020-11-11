@@ -6,11 +6,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -45,21 +47,58 @@ public class UpdateView extends VBox{
 	}
 	
 	private void addActions() {
-	add.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				CreateView cv = new CreateView();
-				Scene scene = new Scene(cv, 400, 400);
-				Main.window3.setScene(scene);
-				Main.window3.show();
-			}
-		});
-	edit.setOnAction(new EventHandler<ActionEvent>() {
-
+	save.setOnAction(new EventHandler<ActionEvent>() {
+		
 		@Override
 		public void handle(ActionEvent event) {
+			int id = Integer.parseInt(tfId.getText());
+			String naziv = tfNaziv.getText();
+			String atributi = taSimpleProperties.getText();
+			ObservableList<EntityForView> entities = lvEntityProperties.getItems();
+			
+			Entity newEntity = StorageBase.getInstance().getInUse();
+			newEntity.setId(id);
+			newEntity.setNaziv(naziv);
+			String[] split = atributi.split("\n");
+			for(String s : split) {
+				String[] keyValueSplit = s.split(":");
+				newEntity.getSimpleProperties().put(keyValueSplit[0], keyValueSplit[1]);
+			}
+			for(EntityForView e : entities) {
+				if(newEntity.getEntityProperties().containsKey(e.getKey()))
+					newEntity.getEntityProperties().replace(e.getKey(), e.getEntity());
+				else
+					newEntity.getEntityProperties().put(e.getKey(), e.getEntity());
+			}
+			Main.window2.close();
+		}
+	});
+	edit.setOnAction(new EventHandler<ActionEvent>() {
+		
+		@Override
+		public void handle(ActionEvent event) {
+			Entity e = lvEntityProperties.getSelectionModel().getSelectedItem().getEntity();
+			if(e == null) {
+				Alert a = new Alert(AlertType.ERROR);
+				a.setContentText("Selektujte nesto u listi");
+				a.show();
+				return;
+			}
+			StorageBase.getInstance().setInUse(e);
+			StorageBase.getInstance().getEfv().clear();
+			for(String s : e.getEntityProperties().keySet()) {
+				EntityForView efv = new EntityForView(s, e.getEntityProperties().get(s));
+				StorageBase.getInstance().getEfv().add(efv);
+			}
 			UpdateView uv = new UpdateView();
+			uv.getTfId().setText(""+e.getId());
+			if(!StorageBase.getInstance().getStorage().isAutoincrement()) {
+				uv.getTfId().setDisable(true);
+			}
+			uv.getTfNaziv().setText(e.getNaziv());
+			for(String s : e.getSimpleProperties().keySet()) {
+				uv.getTaSimpleProperties().appendText(s + ":" + e.getSimpleProperties().get(s) + "\n");
+			} 
 			Scene scene = new Scene(uv, 400, 400);
 			Main.window2.setScene(scene);
 			Main.window2.show();
@@ -70,7 +109,8 @@ public class UpdateView extends VBox{
 		
 		@Override
 		public void handle(ActionEvent event) {
-			CreateView cv = new CreateView();
+			StorageBase.getInstance().getEfv().clear();
+			CreateViewWithKey cv = new CreateViewWithKey();
 			Scene scene = new Scene(cv, 400, 400);
 			Main.window3.setScene(scene);
 			Main.window3.show();

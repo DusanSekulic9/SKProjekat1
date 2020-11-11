@@ -23,6 +23,10 @@ public class EntityForView {
 		this.entity = entity;
 	}
 	
+	@Override
+	public String toString() {
+		return key + ":" + entity.toString();
+	}
 	
 	
 }
