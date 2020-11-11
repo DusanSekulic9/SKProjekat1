@@ -100,7 +100,6 @@ public abstract class Storage {
 	
 	public boolean pretraga(Entity e, String str){
 		String[] split = str.split("\n");
-		boolean b = false;
 		boolean provere = true;
 		for(String s : split) {
 			String[] sp = s.split(":");
@@ -114,24 +113,21 @@ public abstract class Storage {
 						provere = false;
 					}
 				}
+				if(provere) {
+					searched.add(e);
+					return provere; 
+				}
 				if(e.getSimpleProperties().size() > 0) {
 					boolean bo = true;
 					for(String key : e.getSimpleProperties().keySet()) {
 						if(key.equalsIgnoreCase(sp[0])) {
-							b=false;
+							bo=false;
 							break;
 						}
 					}
 					for(Object value : e.getSimpleProperties().values()) {
-						String v;
-						if(value instanceof Integer) {
-							v = value.toString();
-						}
-						else {
-							v = (String)value;
-						}
-						if(v.equalsIgnoreCase(sp[1])) {
-							b=false;
+						if(value.toString().equalsIgnoreCase(sp[1])) {
+							bo=false;
 							break;
 						}
 					}

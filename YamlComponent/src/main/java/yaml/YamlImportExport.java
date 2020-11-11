@@ -28,7 +28,7 @@ public class YamlImportExport extends Storage {
 		try {
 			
 			entities = om.readValue(file, new TypeReference<List<Entity>>() {});
-			System.out.println(entities);			
+			System.out.println(entities);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
