@@ -81,7 +81,7 @@ public class CreateView extends VBox{
 					else
 						newEntity.getEntityProperties().put(e.getKey(), e.getEntity());
 				}
-				
+				StorageBase.getInstance().getStorage().getNewEntities().add(newEntity);
 				
 			}
 		});
@@ -106,7 +106,7 @@ public class CreateView extends VBox{
 		gp.setAlignment(Pos.CENTER);
 		this.getChildren().add(gp);
 		HBox hbox = new HBox();
-		hbox.getChildren().add(add);
+		//hbox.getChildren().add(add);
 		hbox.setAlignment(Pos.CENTER);
 		hbox.setSpacing(20);
 		this.getChildren().add(hbox);

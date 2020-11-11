@@ -13,11 +13,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.Main;
 import model.Entity;
+import model.EntityForView;
+import model.StorageBase;
 
 public class NewStorView extends VBox {
 	
@@ -72,16 +76,39 @@ public class NewStorView extends VBox {
 			
 			@Override
 			public void handle(ActionEvent event) {
+				StorageBase.getInstance().getEfv().clear();
 				Scene scene = new Scene(new CreateView(), 400, 400);
 				Main.window2.setScene(scene);
 				Main.window2.show();
 			}
 		});
 		update.setOnAction(new EventHandler<ActionEvent>() {
-			
+		
 			@Override
 			public void handle(ActionEvent event) {
-				Scene scene = new Scene(new UpdateView(), 400, 400);
+				Entity e = tw.getSelectionModel().getSelectedItem();
+				if(e == null) {
+					Alert a = new Alert(AlertType.ERROR);
+					a.setContentText("Selektujte nesto u tabeli");
+					a.show();
+					return;
+				}
+				StorageBase.getInstance().setInUse(e);
+				StorageBase.getInstance().getEfv().clear();
+				for(String s : e.getEntityProperties().keySet()) {
+					EntityForView efv = new EntityForView(s, e.getEntityProperties().get(s));
+					StorageBase.getInstance().getEfv().add(efv);
+				}
+				UpdateView uv = new UpdateView();
+				uv.getTfId().setText(""+e.getId());
+				if(!StorageBase.getInstance().getStorage().isAutoincrement()) {
+					uv.getTfId().setDisable(true);
+				}
+				uv.getTfNaziv().setText(e.getNaziv());
+				for(String s : e.getSimpleProperties().keySet()) {
+					uv.getTaSimpleProperties().appendText(s + ":" + e.getSimpleProperties().get(s) + "\n");
+				} 
+				Scene scene = new Scene(uv, 400, 400);
 				Main.window2.setScene(scene);
 				Main.window2.show();
 			}

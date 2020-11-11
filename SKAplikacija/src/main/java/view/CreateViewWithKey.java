@@ -65,7 +65,7 @@ public class CreateViewWithKey extends VBox{
 				int id = Integer.parseInt(tfId.getText());
 				String naziv = tfNaziv.getText();
 				String atributi = taSimpleProperties.getText();
-				ObservableList<EntityForView> entities = lvEntityProperties.getItems();
+				//ObservableList<EntityForView> entities = lvEntityProperties.getItems();
 				
 				Entity newEntity = new Entity();
 				newEntity.setId(id);
@@ -75,6 +75,7 @@ public class CreateViewWithKey extends VBox{
 					String[] keyValueSplit = s.split(":");
 					newEntity.getSimpleProperties().put(keyValueSplit[0], keyValueSplit[1]);
 				}
+				StorageBase.getInstance().getInUse().getEntityProperties().put(tfKey.getText(), newEntity);
 				EntityForView efv = new EntityForView(tfKey.getText(), newEntity);
 				StorageBase.getInstance().getEfv().add(efv);
 				
@@ -103,7 +104,7 @@ public class CreateViewWithKey extends VBox{
 		gp.setAlignment(Pos.CENTER);
 		this.getChildren().add(gp);
 		HBox hbox = new HBox();
-		hbox.getChildren().add(add);
+		//hbox.getChildren().add(add);
 		hbox.setAlignment(Pos.CENTER);
 		hbox.setSpacing(20);
 		this.getChildren().add(hbox);
