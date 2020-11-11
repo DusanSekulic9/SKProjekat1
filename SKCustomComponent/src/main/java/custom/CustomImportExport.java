@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.util.HashMap;
 import java.util.List;
 
+import com.google.gson.stream.JsonToken;
+
 import model.Entity;
 import model.Storage;
 
@@ -13,51 +15,63 @@ public class CustomImportExport extends Storage {
 
 	@Override
 	public void pretraziFajl(File file) {
+		try{FileReader fr = new FileReader(file);
+		BufferedReader br = new BufferedReader(fr);
+		pretraziEntitet(br);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void pretraziEntitet(BufferedReader br) {
 		try {
-			FileReader fr = new FileReader(file);
-			BufferedReader bf = new BufferedReader(fr);
-			String parser = "";
-			String line = bf.readLine();
-			Entity e;
-			while(line != null) {
-				String[] split = line.split(":");
-				if(split[0].equalsIgnoreCase("_id")) {
-					e = new Entity();
-					e.setId(Integer.parseInt(split[1]));
-					line = bf.readLine();
-					split = line.split(":");
-					if(split[0].equalsIgnoreCase("naziv")) {
-						e.setNaziv(split[1].substring(0, split[1].length()-1));
-						line = bf.readLine();
-						split = line.split(":");
-					}
-					if(split[0].equalsIgnoreCase("simpleproperties")) {
-						line = bf.readLine();
-						split = line.split(":");
-						while(!split[0].equalsIgnoreCase("_id") || !split[0].equalsIgnoreCase("entityproperties")) {
-							HashMap<String, Object> simple = new HashMap<String, Object>();
-							String value = split[1];
-							if(split[1].startsWith("'")) {
-								value = split[1].substring(0, split[1].length()-1);
-							}
-							simple.put(split[0], (Object)value);
-							
-							line = bf.readLine();
-							split = line.split(":");
+			String line = br.readLine();
+			while(!line.equalsIgnoreCase("#")) {
+				
+				String split[] = line.split(":");
+				String value=null;
+				if(split[1].charAt(split[1].length()-1) != '-') {
+					if(!split[1].contains("-")){
+						if(split[1].contains("'")) {
+							value = split[1].substring(0, split[1].length()-1);
 						}
-					}
-					if(split[0].equalsIgnoreCase("entityproperties")) {
-						line = bf.readLine();
+				}
+					parser += split[0] + ":" + value + "\n";
+				}else {
+					if(split[0].equalsIgnoreCase("simpleproperties")) {
+						line = br.readLine();
 						split = line.split(":");
-						
+						while(!split[1].contains("-")) {
+							
+							
+							line = br.readLine();
+							split = line.split(":");
+							}
+							parser += key + ":" + value + "\n";
+						}
+						reader.endObject();
+					}else {
+						reader.beginObject();
+						if(reader.peek() == JsonToken.END_OBJECT) {
+							parser += "SS:entity\n";
+							break;
+						}
+						key = reader.nextName();
+						parser += key + ":entity\n";
+						pretraziEntitet(reader);
+
 					}
-					
 				}
 				
-				line = bf.readLine();
+			
+			
+			
+	
+				
+			
+			
 			}
-			bf.close();
-			fr.close();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

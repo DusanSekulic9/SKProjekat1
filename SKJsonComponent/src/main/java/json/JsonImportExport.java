@@ -39,7 +39,7 @@ public class JsonImportExport extends Storage{
 				reader.beginObject();
 				while(reader.peek() != JsonToken.END_OBJECT) {
 					String key = reader.nextName();
-					if(reader.peek() != JsonToken.BEGIN_OBJECT) {
+					if(reader.peek() != JsonToken.BEGIN_OBJECT) { //{
 						String value = reader.nextString();
 //						for(String s : pretraga) {
 //							String[] split = s.split(":");
@@ -90,6 +90,7 @@ public class JsonImportExport extends Storage{
 				}
 				//if(pogodak == pretraga.length) {
 					entities.add(createObjectFromString(parser));
+					System.out.println(parser);
 					//System.out.println("add" + res);
 				//}
 				//isIt = false;
