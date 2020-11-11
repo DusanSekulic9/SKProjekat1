@@ -1,5 +1,8 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +19,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.Main;
 import model.Entity;
+import model.EntityForView;
+import model.StorageBase;
 
 public class CreateView extends VBox{
 	
@@ -23,9 +28,9 @@ public class CreateView extends VBox{
 	private TextField tfId;
 	private TextField tfNaziv;
 	private TextArea taSimpleProperties;
-	private ListView<Entity> lvEntityProperties;
+	private ListView<EntityForView> lvEntityProperties;
 	private Button save;
-	private ObservableList<Entity> list = FXCollections.observableArrayList();
+	private ObservableList<EntityForView> list = FXCollections.observableArrayList();
 	private Button add;
 	
 	public CreateView() {
@@ -46,11 +51,38 @@ public class CreateView extends VBox{
 			
 			@Override
 			public void handle(ActionEvent event) {
-				CreateView cv = new CreateView();
+				CreateViewWithKey cv = new CreateViewWithKey();
 				cv.getAdd().setDisable(true);
 				Scene scene = new Scene(cv, 400, 400);
 				Main.window4.setScene(scene);
 				Main.window4.show();
+			}
+		});
+		save.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				int id = Integer.parseInt(tfId.getText());
+				String naziv = tfNaziv.getText();
+				String atributi = taSimpleProperties.getText();
+				ObservableList<EntityForView> entities = lvEntityProperties.getItems();
+				
+				Entity newEntity = new Entity();
+				newEntity.setId(id);
+				newEntity.setNaziv(naziv);
+				String[] split = atributi.split("\n");
+				for(String s : split) {
+					String[] keyValueSplit = s.split(":");
+					newEntity.getSimpleProperties().put(keyValueSplit[0], keyValueSplit[1]);
+				}
+				for(EntityForView e : entities) {
+					if(newEntity.getEntityProperties().containsKey(e.getKey()))
+						newEntity.getEntityProperties().replace(e.getKey(), e.getEntity());
+					else
+						newEntity.getEntityProperties().put(e.getKey(), e.getEntity());
+				}
+				
+				
 			}
 		});
 	}
@@ -90,8 +122,8 @@ public class CreateView extends VBox{
 		this.tfNaziv.setMaxWidth(100);
 		this.taSimpleProperties = new TextArea();
 		this.taSimpleProperties.setMaxWidth(300);
-		this.lvEntityProperties = new ListView<Entity>();
-		this.lvEntityProperties.setItems(list);
+		this.lvEntityProperties = new ListView<EntityForView>();
+		this.lvEntityProperties.setItems(StorageBase.getInstance().getEfv());
 		this.save = new Button("Save");
 		this.add = new Button("Add Entity");
 	}
@@ -120,11 +152,11 @@ public class CreateView extends VBox{
 		this.taSimpleProperties = taSimpleProperties;
 	}
 
-	public ListView<Entity> getLvEntityProperties() {
+	public ListView<EntityForView> getLvEntityProperties() {
 		return lvEntityProperties;
 	}
 
-	public void setLvEntityProperties(ListView<Entity> lvEntityProperties) {
+	public void setLvEntityProperties(ListView<EntityForView> lvEntityProperties) {
 		this.lvEntityProperties = lvEntityProperties;
 	}
 
@@ -136,11 +168,11 @@ public class CreateView extends VBox{
 		this.save = save;
 	}
 
-	public ObservableList<Entity> getList() {
+	public ObservableList<EntityForView> getList() {
 		return list;
 	}
 
-	public void setList(ObservableList<Entity> list) {
+	public void setList(ObservableList<EntityForView> list) {
 		this.list = list;
 	}
 

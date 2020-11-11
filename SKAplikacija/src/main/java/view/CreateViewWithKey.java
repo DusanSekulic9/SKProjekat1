@@ -1,5 +1,7 @@
 package view;
 
+import java.util.ArrayList;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,63 +21,65 @@ import model.Entity;
 import model.EntityForView;
 import model.StorageBase;
 
-public class UpdateView extends VBox{
+public class CreateViewWithKey extends VBox{
 	
-	private static UpdateView instance = null;
+	private static CreateViewWithKey instance = null;
 	private TextField tfId;
+	private TextField tfKey;
 	private TextField tfNaziv;
 	private TextArea taSimpleProperties;
 	private ListView<EntityForView> lvEntityProperties;
 	private Button save;
-	private ObservableList<Entity> list = FXCollections.observableArrayList();
+	private ObservableList<EntityForView> list = FXCollections.observableArrayList();
 	private Button add;
-	private Button edit;
 	
-	public UpdateView() {
+	public CreateViewWithKey() {
 		init();
 		addElements();
 		addActions();
 	}
 
-	public static UpdateView getInstance() {
+	public static CreateViewWithKey getInstance() {
 		if(instance == null) {
-			instance = new UpdateView();
+			instance = new CreateViewWithKey();
 		}
 		return instance;
 	}
 	
 	private void addActions() {
-	add.setOnAction(new EventHandler<ActionEvent>() {
+		add.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent event) {
-				CreateView cv = new CreateView();
+				CreateViewWithKey cv = new CreateViewWithKey();
+				cv.getAdd().setDisable(true);
 				Scene scene = new Scene(cv, 400, 400);
-				Main.window3.setScene(scene);
-				Main.window3.show();
+				Main.window4.setScene(scene);
+				Main.window4.show();
 			}
 		});
-	edit.setOnAction(new EventHandler<ActionEvent>() {
-
-		@Override
-		public void handle(ActionEvent event) {
-			UpdateView uv = new UpdateView();
-			Scene scene = new Scene(uv, 400, 400);
-			Main.window2.setScene(scene);
-			Main.window2.show();
-		}
-	});
-	
-	add.setOnAction(new EventHandler<ActionEvent>() {
-		
-		@Override
-		public void handle(ActionEvent event) {
-			CreateView cv = new CreateView();
-			Scene scene = new Scene(cv, 400, 400);
-			Main.window3.setScene(scene);
-			Main.window3.show();
-		}
-	});
+		save.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				int id = Integer.parseInt(tfId.getText());
+				String naziv = tfNaziv.getText();
+				String atributi = taSimpleProperties.getText();
+				ObservableList<EntityForView> entities = lvEntityProperties.getItems();
+				
+				Entity newEntity = new Entity();
+				newEntity.setId(id);
+				newEntity.setNaziv(naziv);
+				String[] split = atributi.split("\n");
+				for(String s : split) {
+					String[] keyValueSplit = s.split(":");
+					newEntity.getSimpleProperties().put(keyValueSplit[0], keyValueSplit[1]);
+				}
+				EntityForView efv = new EntityForView(tfKey.getText(), newEntity);
+				StorageBase.getInstance().getEfv().add(efv);
+				
+			}
+		});
 	}
 	
 	public Button getAdd() {
@@ -92,13 +96,14 @@ public class UpdateView extends VBox{
 		gp.add(taSimpleProperties, 1, 3);
 		gp.add(new Label("Entity properties: "), 0, 4);
 		gp.add(lvEntityProperties, 1, 4);
+		gp.add(new Label("Key:"), 0, 5);
+		gp.add(tfKey, 1, 5);
 		gp.setHgap(10);
 		gp.setVgap(10);
 		gp.setAlignment(Pos.CENTER);
 		this.getChildren().add(gp);
 		HBox hbox = new HBox();
 		hbox.getChildren().add(add);
-		hbox.getChildren().add(edit);
 		hbox.setAlignment(Pos.CENTER);
 		hbox.setSpacing(20);
 		this.getChildren().add(hbox);
@@ -115,10 +120,10 @@ public class UpdateView extends VBox{
 		this.taSimpleProperties = new TextArea();
 		this.taSimpleProperties.setMaxWidth(300);
 		this.lvEntityProperties = new ListView<EntityForView>();
-		this.lvEntityProperties.setItems(StorageBase.getInstance().getEfv());
+		//this.lvEntityProperties.setItems(StorageBase.getInstance().getEfv());
 		this.save = new Button("Save");
-		this.add = new Button("Add");
-		this.edit = new Button("Edit");
+		this.add = new Button("Add Entity");
+		this.tfKey = new TextField();
 	}
 
 	public TextField getTfId() {
@@ -161,19 +166,18 @@ public class UpdateView extends VBox{
 		this.save = save;
 	}
 
-	public ObservableList<Entity> getList() {
+	public ObservableList<EntityForView> getList() {
 		return list;
 	}
 
-	public void setList(ObservableList<Entity> list) {
+	public void setList(ObservableList<EntityForView> list) {
 		this.list = list;
 	}
 
-	public static void setInstance(UpdateView instance) {
-		UpdateView.instance = instance;
+	public static void setInstance(CreateViewWithKey instance) {
+		CreateViewWithKey.instance = instance;
 	}
 	
 	
 	
 }
-
