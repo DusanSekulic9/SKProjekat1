@@ -16,6 +16,7 @@ public class CustomImportExport extends Storage {
 		try {
 			FileReader fr = new FileReader(file);
 			BufferedReader bf = new BufferedReader(fr);
+			String parser = "";
 			String line = bf.readLine();
 			Entity e;
 			while(line != null) {
@@ -46,8 +47,8 @@ public class CustomImportExport extends Storage {
 						}
 					}
 					if(split[0].equalsIgnoreCase("entityproperties")) {
-						
-						
+						line = bf.readLine();
+						split = line.split(":");
 						
 					}
 					
