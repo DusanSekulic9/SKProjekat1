@@ -17,9 +17,28 @@ public abstract class Storage {
 	protected static Storage json;
 	protected static Storage yaml;
 	protected static Storage custom;
+	protected int auto=0;
 
+	
+	/**
+	 * pretraziFajl metoda za pretragu Entiteta u fajlu
+	 * 
+	 * @param file
+	 */
+	
+	
 	public abstract void pretraziFajl(File file);
 
+	/**
+	 * Save metoda za snimanje entiteta u fajl
+	 * 
+	 * @param e
+	 * @param f
+	 * 
+	 * 
+	 */
+	
+	
 	public abstract void save(Entity e, File f);
 
 	public abstract void save(List<Entity> entities);
@@ -157,6 +176,12 @@ public abstract class Storage {
 		}
 	}
 	
+	/**
+	 * pretrazi metoda za pretrtagu fajla po odredjenim parametrima
+	 * 
+	 * @param s
+	 * @return
+	 */
 
 	public List<Entity> pretrazi(String s) {
 		entities.clear();
@@ -165,6 +190,12 @@ public abstract class Storage {
 			pretraziFajl(f);
 		}
 		entities.addAll(newEntities);
+		auto+=entities.size();
+		for(Entity e : entities) {
+			System.out.println("entityProp "+e.getEntityProperties().size());
+			auto += e.getEntityProperties().size();
+		}
+		System.out.println("broj id u pretrazi: " + auto);
 		if(!s.equalsIgnoreCase(":")) {
 			System.out.println(s);
 			for (Entity e : entities) {
@@ -180,6 +211,14 @@ public abstract class Storage {
 
 	public void setNewEntities(List<Entity> newEntities) {
 		this.newEntities = newEntities;
+	}
+
+	public int getAuto() {
+		return auto;
+	}
+
+	public void setAuto(int auto) {
+		this.auto = auto;
 	}
 	
 	

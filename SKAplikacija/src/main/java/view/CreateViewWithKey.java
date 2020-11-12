@@ -68,6 +68,8 @@ public class CreateViewWithKey extends VBox{
 				//ObservableList<EntityForView> entities = lvEntityProperties.getItems();
 				
 				Entity newEntity = new Entity();
+				StorageBase.getInstance().getStorage().setAuto(StorageBase.getInstance().getStorage().getAuto()+1);
+			//	newEntity.setId(StorageBase.getInstance().getStorage().getAuto());
 				newEntity.setId(id);
 				newEntity.setNaziv(naziv);
 				String[] split = atributi.split("\n");

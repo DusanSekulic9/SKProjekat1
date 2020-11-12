@@ -30,7 +30,6 @@ public class JsonImportExport extends Storage{
 			reader.endArray();
 			
 			reader.close();
-			
 		}catch (Exception e) {
 			
 		}
