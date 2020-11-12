@@ -53,23 +53,23 @@
 		"id": 6,
 		"naziv": "predmet",
 		"simpleProperties": {
-			"ime": "OOP"
+			"ime": "UUP"
 		},
 		"entityProperties": {
 			"profesor": {
 				"id": 7,
 				"naziv": "profesor",
 				"simpleProperties": {
-					"ime": "Ana",
-					"prezime": "Anic"
+					"ime": "Marta",
+					"prezime": "Martic"
 				},
 				"entityProperties": {
 					"kolega": { 
 						"id": 8,
 						"naziv": "kolega",
 						"simpleProperties": {
-						"ime": "Marko",
-						"prezime": "Markovic"
+						"ime": "Petar",
+						"prezime": "Petrovic"
 						},
 						"entityProperties": {
 						}

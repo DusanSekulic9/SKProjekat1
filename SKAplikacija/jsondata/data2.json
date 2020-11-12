@@ -1,0 +1,52 @@
+[
+	{
+		"id": 9,
+		"naziv": "student",
+		"simpleProperties": {
+			"ime": "Nikola",
+			"mesto": "Beograd"
+		},
+		"entityProperties": {
+			"ljubimac": {
+				"id": 10,
+				"naziv": "ljubimac",
+				"simpleProperties": {
+					"ime": "Leni",
+					"zivotinja": "pas",
+					"starost": 2
+				},
+				"entityProperties": {
+				}
+			}
+		}
+	},
+	{
+		"id": 11,
+		"naziv": "predmet",
+		"simpleProperties": {
+			"ime": "ORS"
+		},
+		"entityProperties": {
+			"profesor": {
+				"id": 12,
+				"naziv": "profesor",
+				"simpleProperties": {
+					"ime": "Milos",
+					"prezime": "Todorovic"
+				},
+				"entityProperties": {
+					"kolega": { 
+						"id": 13,
+						"naziv": "student",
+						"simpleProperties": {
+						"ime": "Aleksa",
+						"prezime": "Jagodic"
+						},
+						"entityProperties": {
+						}
+					}
+				}
+			}
+		}
+	}
+]

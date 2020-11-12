@@ -1,0 +1,20 @@
+id: 14
+naziv: "predmet"
+simpleProperties:
+  ime: "OOP"
+  entityProperties:
+    profesor:
+      id: 15
+      naziv: "profesor"
+      simpleProperties:
+        ime: "Ana"
+        prezime: "Anic"
+      entityProperties:
+        kolega:
+          id: 16
+          naziv: "kolega"
+          simpleProperties:
+            ime: "Marko"
+            prezime: "Markovic"
+          entityProperties: {}
+entityProperties: {}
