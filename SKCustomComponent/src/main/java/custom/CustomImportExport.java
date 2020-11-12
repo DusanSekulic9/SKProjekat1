@@ -38,7 +38,7 @@ public class CustomImportExport extends Storage {
 					create = true;
 				}
 				if(create) {
-					createObjectFromString(parser);
+					entities.add(createObjectFromString(parser));
 					parser = "";
 					create = false;
 				}
@@ -50,7 +50,7 @@ public class CustomImportExport extends Storage {
 						parser += "SS:entity\n";
 						create = true;
 					}else {
-						parser += key + "entity\n";
+						parser += key.trim() + "entity\n";
 					}
 				}else {
 					String[] keyValueSplit = line.split(":");

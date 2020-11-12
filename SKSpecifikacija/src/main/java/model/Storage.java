@@ -55,7 +55,6 @@ public abstract class Storage {
 		boolean newEntity = false;
 		String parse = "";
 		String key = "";
-		System.out.println(string);
 		for (String s : splitByComa) {
 			String[] keyValueSplit = s.split(":");
 			if (newEntity) {
@@ -77,7 +76,6 @@ public abstract class Storage {
 			}
 
 		}
-		System.out.println(entity);
 		return entity;
 	}
 
