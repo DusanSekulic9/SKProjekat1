@@ -29,8 +29,7 @@ public class YamlImportExport extends Storage {
 		ObjectMapper om = new ObjectMapper(new YAMLFactory());
 		try {
 			
-			entities = om.readValue(file, new TypeReference<List<Entity>>() {});
-			System.out.println(entities);
+			entities.addAll( om.readValue(file, new TypeReference<List<Entity>>() {}));
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
