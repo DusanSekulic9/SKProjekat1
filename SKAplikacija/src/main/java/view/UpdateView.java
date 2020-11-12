@@ -71,6 +71,7 @@ public class UpdateView extends VBox{
 					newEntity.getEntityProperties().put(e.getKey(), e.getEntity());
 			}
 			Main.window2.close();
+			NewStorView.getInstance().getTw().refresh();
 		}
 	});
 	edit.setOnAction(new EventHandler<ActionEvent>() {
