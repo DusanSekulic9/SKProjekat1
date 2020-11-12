@@ -16,6 +16,8 @@ public class CustomImportExport extends Storage {
 		return new CustomImportExport();
 	}
 	
+	String parser = "";
+	
 	@Override
 	public void pretraziFajl(File file) {
 		try{FileReader fr = new FileReader(file);
@@ -28,60 +30,48 @@ public class CustomImportExport extends Storage {
 	
 	
 	public void pretraziEntitet(BufferedReader br) {
+		String line = "";
+		boolean create = false;
 		try {
-			String line = br.readLine();
-			while(!line.equalsIgnoreCase("#")) {
-				
-				String split[] = line.split(":");
-				String value=null;
-				if(split[1].charAt(split[1].length()-1) != '-') {
-					if(!split[1].contains("-")){
-						if(split[1].contains("'")) {
-							value = split[1].substring(0, split[1].length()-1);
-						}
+			while((line = br.readLine()) != null) {
+				if(line.contains("_")) {
+					create = true;
 				}
-					parser += split[0] + ":" + value + "\n";
-				}else {
-					if(split[0].equalsIgnoreCase("simpleproperties")) {
-						line = br.readLine();
-						split = line.split(":");
-						while(!split[1].contains("-")) {
-							
-							
-							line = br.readLine();
-							split = line.split(":");
-							}
-							parser += key + ":" + value + "\n";
-						}
-						reader.endObject();
+				if(create) {
+					createObjectFromString(parser);
+					parser = "";
+					create = false;
+				}
+				if(line.contains("entitet:")) {
+					String key = br.readLine();
+					if(key == null) {
+						parser += "SS:entity\n";
+					}else if(key.trim().equalsIgnoreCase("_")) {
+						parser += "SS:entity\n";
+						create = true;
 					}else {
-						reader.beginObject();
-						if(reader.peek() == JsonToken.END_OBJECT) {
-							parser += "SS:entity\n";
-							break;
-						}
-						key = reader.nextName();
-						parser += key + ":entity\n";
-						pretraziEntitet(reader);
-
+						parser += key + "entity\n";
 					}
+				}else {
+					String[] keyValueSplit = line.split(":");
+					parser += keyValueSplit[0] + ":" + keyValueSplit[1] + "\n";
 				}
-				
-			
-			
-			
-	
-				
-			
-			
 			}
+			if(create) {
+				createObjectFromString(parser);
+				parser = "";
+				create = false;
+			}
+			
+			
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void save(Entity e) {
+	public void save(Entity e, File f) {
 		// TODO Auto-generated method stub
 		
 	}

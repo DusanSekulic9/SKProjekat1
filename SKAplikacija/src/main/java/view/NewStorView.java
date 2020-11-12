@@ -143,11 +143,12 @@ public class NewStorView extends VBox {
 					}
 				}
 				int n = 0;
-				StorageBase.getInstance().getStorage().setMaxFiles(6);
-				System.out.println("save" +ent);
+				StorageBase.getInstance().getStorage().setMaxFiles(2);
+				System.out.println("save" + ent);
 				for(File f : StorageBase.getInstance().getStorage().getFileInUse().listFiles()) {
 					for(int i = 0 ; i < StorageBase.getInstance().getStorage().getMaxFiles() ; i++) {
 						StorageBase.getInstance().getStorage().save(ent.get(n+i),f);
+						System.out.println("Cuva se entitet:" + ent.get(n + i));
 					}
 					n += StorageBase.getInstance().getStorage().getMaxFiles();
 				}

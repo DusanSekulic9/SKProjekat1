@@ -68,7 +68,7 @@ public abstract class Storage {
 				newEntity = true;
 			} else {
 				if (keyValueSplit[0].equalsIgnoreCase("id")) {
-					entity.setId(Integer.parseInt(keyValueSplit[1]));
+					entity.setId(Integer.parseInt(keyValueSplit[1].trim()));
 				} else if (keyValueSplit[0].equalsIgnoreCase("naziv")) {
 					entity.setNaziv(keyValueSplit[1]);
 				} else {
@@ -164,9 +164,9 @@ public abstract class Storage {
 		for (File f : fileInUse.listFiles()) {
 			pretraziFajl(f);
 		}
+		System.out.println(entities);
 		entities.addAll(newEntities);
 		if(!s.equalsIgnoreCase(":")) {
-			System.out.println(s);
 			for (Entity e : entities) {
 				pretraga(e, s);
 			}
