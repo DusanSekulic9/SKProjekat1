@@ -127,7 +127,7 @@ public class NewStorView extends VBox {
 			@Override
 			public void handle(ActionEvent event) {
 				List<Entity> ent = new ArrayList<>();
-				ent = StorageBase.getInstance().getStorage().getEntities();
+				ent.addAll(StorageBase.getInstance().getStorage().getEntities());
 				for(Entity newEnt : StorageBase.getInstance().getStorage().getNewEntities()) {
 					boolean exist = true;
 					for(Entity e:  StorageBase.getInstance().getStorage().getEntities()) {

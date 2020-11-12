@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.yaml.snakeyaml.Yaml;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -35,52 +34,7 @@ public class YamlImportExport extends Storage {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		/*
-		 *  Yaml yaml = new Yaml();
-			InputStream inputStream = new FileInputStream(file);;
-			Map<String, Object> obj = yaml.load(inputStream);  //{firstName=John, lastName=Doe, age=20}
-		 * 
-		 * 
-		 */
-	/*	String[] split = pretraga.split("\n");
-		try {
-			JsonReader reader = new JsonReader(new FileReader(file));
-			reader.beginArray();
-				pretraziEntitet(reader, split);
-			reader.endArray();
-			
-			reader.close();
-		}catch (Exception e) {
-			
-		} */
-	}
-	
-	
-	public void pretraziEntitet(File file) {
 		
-		
-	/*	ObjectMapper om = new ObjectMapper(new YAMLFactory());
-		try {
-			
-			List<Entity> en = om.readValue(file, new TypeReference<List<Entity>>() {});
-			System.out.println(en);
-		}catch(Exception e) {
-			e.printStackTrace();
-		} */
-		
-		
-	/*	// import file to object
-		//snake yaml jar
-		Yaml yaml = new Yaml();
-		try {
-			InputStream in = new FileInputStream(file);
-			Object o = yaml.loadAs(in, Entity.class); //objekat koji loadujemo je instanceof te klase
-		//	return (Entity)o;
-		}catch(Exception e ) {
-			e.printStackTrace();
-		}
-		
-		*/
 	}
 
 /*	private void stringToFile(String s) {
