@@ -111,11 +111,10 @@ public class JsonImportExport extends Storage{
 		}
 	}
 	@Override
-	public void save(Entity e) {
+	public void save(Entity e, File f) {
 		try {
 			String json = new Gson().toJson(e);
-			fileInUse.setWritable(true);
-			FileOutputStream fos = new FileOutputStream(fileInUse);
+			FileOutputStream fos = new FileOutputStream(f);
 			BufferedOutputStream bos = new BufferedOutputStream(fos);
 			byte[] bytes = json.getBytes();
 			bos.write(bytes); //upisuje byte array u file

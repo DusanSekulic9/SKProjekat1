@@ -1,5 +1,7 @@
 package view;
 
+import java.io.File;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -140,10 +142,18 @@ public class NewStorView extends VBox {
 						ent.add(newEnt);
 					}
 				}
-				
-				for(Entity e: ent) {
-					StorageBase.getInstance().getStorage().save(e);
+				int n = 0;
+				StorageBase.getInstance().getStorage().setMaxFiles(6);
+				System.out.println("save" +ent);
+				for(File f : StorageBase.getInstance().getStorage().getFileInUse().listFiles()) {
+					for(int i = 0 ; i < StorageBase.getInstance().getStorage().getMaxFiles() ; i++) {
+						StorageBase.getInstance().getStorage().save(ent.get(n+i),f);
+					}
+					n += StorageBase.getInstance().getStorage().getMaxFiles();
 				}
+			//	for(Entity e: ent) {
+			//		StorageBase.getInstance().getStorage().save(e);
+			//	}
 			}
 		});
 		

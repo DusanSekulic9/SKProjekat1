@@ -20,14 +20,14 @@ public abstract class Storage {
 
 	public abstract void pretraziFajl(File file);
 
-	public abstract void save(Entity e);
+	public abstract void save(Entity e, File f);
 
 	public abstract void save(List<Entity> entities);
 
 	public void save(int id, String naziv, HashMap<String, Object> simpleProperties,
 			HashMap<String, Entity> entityProperties) {
 		Entity e = new Entity(id, naziv, simpleProperties, entityProperties);
-		save(e);
+		save(e, new File(""));
 	}
 	
 	public static Storage ComponentFactory(String component) {

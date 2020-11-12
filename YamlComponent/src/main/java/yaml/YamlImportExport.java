@@ -14,6 +14,7 @@ import org.yaml.snakeyaml.Yaml;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
 
 import model.Entity;
 import model.Storage;
@@ -30,6 +31,7 @@ public class YamlImportExport extends Storage {
 		try {
 			
 			entities.addAll( om.readValue(file, new TypeReference<List<Entity>>() {}));
+			System.out.println(entities);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -53,13 +55,11 @@ public class YamlImportExport extends Storage {
 	
 	
 	@Override
-	public void save(Entity e) {
+	public void save(Entity e, File f) {
 		
 		try {
-			ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-			fileInUse.setWritable(true);
-			mapper.writeValue(fileInUse,e);
-			
+			ObjectMapper mapper = new ObjectMapper(new YAMLFactory().disable(Feature.WRITE_DOC_START_MARKER));
+			mapper.writeValue(f,e);
 		/*	String yaml = mapper.writeValueAsString(e);//string u yaml dala formatu koji predst Entity 
 			stringToFile(yaml); */
 			
