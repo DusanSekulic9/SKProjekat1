@@ -80,7 +80,7 @@ public class YamlImportExport extends Storage {
 		*/
 	}
 
-	private void stringToFile(String s) {
+/*	private void stringToFile(String s) {
 		try {
 			FileOutputStream fos = new FileOutputStream(fileInUse);
 			BufferedOutputStream bos = new BufferedOutputStream(fos);
@@ -93,19 +93,19 @@ public class YamlImportExport extends Storage {
 		}
 		
 		
-	}
+	} */
 	
 	
 	@Override
 	public void save(Entity e) {
-		// create object to file
-		//export obj u  File
-		//yaml jackson jar
 		
 		try {
-			ObjectMapper mapper = new ObjectMapper();
-			String yaml = mapper.writeValueAsString(e);//string u yaml dala formatu koji predst Entity 
-			stringToFile(yaml);
+			ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+			fileInUse.setWritable(true);
+			mapper.writeValue(fileInUse,e);
+			
+		/*	String yaml = mapper.writeValueAsString(e);//string u yaml dala formatu koji predst Entity 
+			stringToFile(yaml); */
 			
 			
 		}catch(Exception ex) {

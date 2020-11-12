@@ -1,7 +1,9 @@
 package json;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 
+import jdk.jfr.events.FileWriteEvent;
 import model.Entity;
 import model.Storage;
 
@@ -105,6 +108,19 @@ public class JsonImportExport extends Storage{
 	}
 	@Override
 	public void save(Entity e) {
+		try {
+			String json = new Gson().toJson(e);
+			fileInUse.setWritable(true);
+			FileOutputStream fos = new FileOutputStream(fileInUse);
+			BufferedOutputStream bos = new BufferedOutputStream(fos);
+			byte[] bytes = json.getBytes();
+			bos.write(bytes); //upisuje byte array u file
+			bos.close();
+			fos.close();
+			
+		}catch(Exception es){
+			es.printStackTrace();
+		}
 		
 	}
 
