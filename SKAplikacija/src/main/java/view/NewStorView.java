@@ -79,8 +79,11 @@ public class NewStorView extends VBox {
 			
 			@Override
 			public void handle(ActionEvent event) {
+				CreateView cv = new CreateView();
+				if(StorageBase.getInstance().getStorage().isAutoincrement())
+					cv.getTfId().setDisable(true);
 				StorageBase.getInstance().getEfv().clear();
-				Scene scene = new Scene(new CreateView(), 400, 400);
+				Scene scene = new Scene(cv, 400, 400);
 				Main.window2.setScene(scene);
 				Main.window2.show();
 			}
@@ -104,7 +107,7 @@ public class NewStorView extends VBox {
 				}
 				UpdateView uv = new UpdateView();
 				uv.getTfId().setText(""+e.getId());
-				if(!StorageBase.getInstance().getStorage().isAutoincrement()) {
+				if(StorageBase.getInstance().getStorage().isAutoincrement()) {
 					uv.getTfId().setDisable(true);
 				}
 				uv.getTfNaziv().setText(e.getNaziv());

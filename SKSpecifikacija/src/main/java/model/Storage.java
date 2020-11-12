@@ -9,7 +9,7 @@ public abstract class Storage {
 
 	private List<Entity> newEntities = new ArrayList<Entity>();
 	protected List<Entity> entities = new ArrayList<Entity>();
-	protected boolean autoincrement = false;
+	protected boolean autoincrement = true;
 	protected int maxFiles;
 	protected File fileInUse = new File("");
 	protected String parser = "";
@@ -17,7 +17,7 @@ public abstract class Storage {
 	protected static Storage json;
 	protected static Storage yaml;
 	protected static Storage custom;
-	protected int auto=0;
+	protected static int auto=0;
 
 	
 	/**
@@ -189,11 +189,11 @@ public abstract class Storage {
 		}
 		System.out.println(entities);
 		entities.addAll(newEntities);
-		auto+=entities.size();
+	/*	auto+=entities.size();
 		for(Entity e : entities) {
 			System.out.println("entityProp "+e.getEntityProperties().size());
-			auto += e.getEntityProperties().size();
-		}
+	//		auto += e.getEntityProperties().size();
+		} */
 		System.out.println("broj id u pretrazi: " + auto);
 		if(!s.equalsIgnoreCase(":")) {
 			for (Entity e : entities) {

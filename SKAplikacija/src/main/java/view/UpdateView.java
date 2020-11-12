@@ -93,7 +93,7 @@ public class UpdateView extends VBox{
 			}
 			UpdateView uv = new UpdateView();
 			uv.getTfId().setText(""+e.getId());
-			if(!StorageBase.getInstance().getStorage().isAutoincrement()) {
+			if(StorageBase.getInstance().getStorage().isAutoincrement()) {
 				uv.getTfId().setDisable(true);
 			}
 			uv.getTfNaziv().setText(e.getNaziv());
@@ -112,6 +112,8 @@ public class UpdateView extends VBox{
 		public void handle(ActionEvent event) {
 			StorageBase.getInstance().getEfv().clear();
 			CreateViewWithKey cv = new CreateViewWithKey();
+			if(StorageBase.getInstance().getStorage().isAutoincrement()) 
+				cv.getTfId().setDisable(true);
 			Scene scene = new Scene(cv, 400, 400);
 			Main.window3.setScene(scene);
 			Main.window3.show();
