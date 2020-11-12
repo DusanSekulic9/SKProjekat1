@@ -74,7 +74,6 @@ public abstract class Storage {
 		boolean newEntity = false;
 		String parse = "";
 		String key = "";
-		System.out.println(string);
 		for (String s : splitByComa) {
 			String[] keyValueSplit = s.split(":");
 			if (newEntity) {
@@ -87,7 +86,7 @@ public abstract class Storage {
 				newEntity = true;
 			} else {
 				if (keyValueSplit[0].equalsIgnoreCase("id")) {
-					entity.setId(Integer.parseInt(keyValueSplit[1]));
+					entity.setId(Integer.parseInt(keyValueSplit[1].trim()));
 				} else if (keyValueSplit[0].equalsIgnoreCase("naziv")) {
 					entity.setNaziv(keyValueSplit[1]);
 				} else {
@@ -96,7 +95,6 @@ public abstract class Storage {
 			}
 
 		}
-		System.out.println(entity);
 		return entity;
 	}
 
@@ -189,6 +187,7 @@ public abstract class Storage {
 		for (File f : fileInUse.listFiles()) {
 			pretraziFajl(f);
 		}
+		System.out.println(entities);
 		entities.addAll(newEntities);
 		auto+=entities.size();
 		for(Entity e : entities) {
@@ -197,7 +196,6 @@ public abstract class Storage {
 		}
 		System.out.println("broj id u pretrazi: " + auto);
 		if(!s.equalsIgnoreCase(":")) {
-			System.out.println(s);
 			for (Entity e : entities) {
 				pretraga(e, s);
 			}
