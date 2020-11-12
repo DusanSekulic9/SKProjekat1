@@ -14,6 +14,9 @@ public abstract class Storage {
 	protected File fileInUse = new File("");
 	protected String parser = "";
 	protected List<Entity> searched = new ArrayList<>();
+	protected static Storage json;
+	protected static Storage yaml;
+	protected static Storage custom;
 
 	public abstract void pretraziFajl(File file);
 
@@ -25,6 +28,12 @@ public abstract class Storage {
 			HashMap<String, Entity> entityProperties) {
 		Entity e = new Entity(id, naziv, simpleProperties, entityProperties);
 		save(e);
+	}
+	
+	public static Storage ComponentFactory(String component) {
+		if(component.equalsIgnoreCase("Json")) return json;
+		if(component.equalsIgnoreCase("yaml")) return yaml;
+		return custom;
 	}
 
 	public List<Entity> getEntities() {
@@ -156,9 +165,11 @@ public abstract class Storage {
 			pretraziFajl(f);
 		}
 		entities.addAll(newEntities);
-		for (Entity e : entities) {
-			pretraga(e, s);
-			System.out.println(searched);
+		if(!s.equalsIgnoreCase(":")) {
+			System.out.println(s);
+			for (Entity e : entities) {
+				pretraga(e, s);
+			}
 		}
 		return searched;
 	}

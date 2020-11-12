@@ -117,7 +117,7 @@ public class NewStorView extends VBox {
 		search.setOnAction(new EventHandler<ActionEvent>() {
 			
 			public void handle(ActionEvent event) {
-				Scene scene = new Scene(new SearchView(), 400, 400);
+				Scene scene = new Scene(new SearchView(), 300, 300);
 				Main.window2.setScene(scene);
 				Main.window2.show();
 			}

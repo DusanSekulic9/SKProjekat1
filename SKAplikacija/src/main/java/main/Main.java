@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import view.ChooseComponentView;
 import view.ChoosingView;
 
 public class Main extends Application{
@@ -25,10 +26,10 @@ public class Main extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		
 		window = primaryStage;
-		ChoosingView cw = new ChoosingView();
-		Scene scene = new Scene(cw, 400, 100);
+		ChooseComponentView cw = new ChooseComponentView();
+		Scene scene = new Scene(cw, 400, 200);
 		window.setScene(scene);
-		window.setTitle("Choose file");
+		window.setTitle("Choose implementation");
 		window2.initModality(Modality.APPLICATION_MODAL);
 		window.show();
 		

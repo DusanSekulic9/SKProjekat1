@@ -21,6 +21,9 @@ import model.Storage;
 
 public class YamlImportExport extends Storage {
 
+	public static Storage YamlFactory(){
+		return new YamlImportExport();
+	}
 	
 	@Override
 	public void pretraziFajl(File file) {	

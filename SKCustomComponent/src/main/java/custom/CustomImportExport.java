@@ -6,13 +6,16 @@ import java.io.FileReader;
 import java.util.HashMap;
 import java.util.List;
 
-import com.google.gson.stream.JsonToken;
 
 import model.Entity;
 import model.Storage;
 
 public class CustomImportExport extends Storage {
-
+	
+	public static Storage customFactory(){
+		return new CustomImportExport();
+	}
+	
 	@Override
 	public void pretraziFajl(File file) {
 		try{FileReader fr = new FileReader(file);

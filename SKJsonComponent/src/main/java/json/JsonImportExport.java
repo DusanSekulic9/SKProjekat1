@@ -36,6 +36,10 @@ public class JsonImportExport extends Storage{
 		}
 	}
 	
+	public static Storage JsonFactory(){
+		return new JsonImportExport();
+	}
+	
 	public void pretraziEntitet(JsonReader reader) {
 		//List<Entity> res = new ArrayList<Entity>();
 		try {

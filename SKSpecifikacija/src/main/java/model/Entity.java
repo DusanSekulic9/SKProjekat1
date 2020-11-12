@@ -2,7 +2,7 @@ package model;
 
 import java.util.HashMap;
 
-public class Entity {
+public class Entity implements Comparable<Entity>{
 	
 	private int id;
 	private String naziv;
@@ -81,6 +81,20 @@ public class Entity {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Entity o) {
+		if(o.getId() > this.getId()) {
+			return -1;
+		}else if(o.getId() < this.getId()) {
+			return 1;
+		}else if(o.getNaziv().compareTo(this.getNaziv()) == 1) {
+			return 1;
+		}else if(o.getNaziv().compareTo(this.getNaziv()) == -1) {
+			return -1;
+		}else return 0;
+		
 	}
 
 	
